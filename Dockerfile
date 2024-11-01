@@ -16,7 +16,7 @@ RUN npm run build
 
 FROM nginx:alpine
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=node /app/dist /usr/share/nginx/html
+COPY --from=node /app/build /usr/share/nginx/html
 
 LABEL authors="flockean"
 LABEL version="v1.0"
