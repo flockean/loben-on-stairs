@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
-import { Home, Plus, User, Upload as UploadIcon } from "lucide-react"
+import {useState} from 'react'
+import {Upload as UploadIcon, User} from "lucide-react"
+import Navbar from "./Navbar";
 
 // Mock user data
 const MOCK_USERS = [
@@ -56,9 +57,9 @@ export default function UploadView() {
     }
 
     return (
-        <div className="w-full max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+        <div>
             {/* Header */}
-            <div className="border-b">
+            <div className="w-full mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
                 <div className="bg-purple-500 text-white p-3 text-center">
                     Upload {step}
                 </div>
@@ -205,19 +206,7 @@ export default function UploadView() {
                     {step < 4 ? 'Weiter' : 'Post'}
                 </button>
             </div>
-
-            {/* Bottom Navigation */}
-            <div className="flex justify-around border-t p-4">
-                <button className="p-2">
-                    <Home className="w-6 h-6" />
-                </button>
-                <button className="p-2">
-                    <Plus className="w-6 h-6" />
-                </button>
-                <button className="p-2">
-                    <User className="w-6 h-6" />
-                </button>
-            </div>
+        <Navbar/>
         </div>
     )
 }

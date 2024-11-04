@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import {useNavigate} from "react-router-dom";
 
 export default function AuthForm() {
     const [isLogin, setIsLogin] = useState(true);
@@ -7,6 +8,8 @@ export default function AuthForm() {
         password: '',
         confirmPassword: ''
     });
+
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -23,6 +26,9 @@ export default function AuthForm() {
             return;
         }
         console.log(isLogin ? 'Login' : 'Registration', 'attempted with:', formData);
+
+        navigate("/upload")
+
     };
 
     const toggleForm = () => {
