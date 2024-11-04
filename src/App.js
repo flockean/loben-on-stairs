@@ -3,6 +3,7 @@ import AuthForm from "./components/AuthFormView";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import UploadView from "./components/UploadView";
 import React from "react";
+import Profile from "./components/ProfileView";
 
 
 const router = createBrowserRouter([
@@ -12,7 +13,11 @@ const router = createBrowserRouter([
     },
     {
         path: "/upload",
-        element: <UploadView/>
+        element: <UploadView/>,
+    },
+    {
+      path: "/profile",
+      element: <Profile/>
     }
 ])
 
