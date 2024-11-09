@@ -18,6 +18,11 @@ const router = createBrowserRouter([
     {
         path: "/home",
         element: <FeedView/>
+    },
+    {
+        path: "*",
+        element: <AuthForm/>
+
     }
 ])
 

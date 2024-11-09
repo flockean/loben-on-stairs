@@ -27,7 +27,7 @@ export default function AuthForm() {
         }
         console.log(isLogin ? 'Login' : 'Registration', 'attempted with:', formData);
 
-        navigate("/upload")
+        navigate("/home")
 
     };
 
