@@ -4,6 +4,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import UploadView from "./components/UploadView";
 import FeedView from "./components/FeedView";
 import React from "react";
+import Profile from "./components/ProfileView";
 
 
 const router = createBrowserRouter([
@@ -13,16 +14,11 @@ const router = createBrowserRouter([
     },
     {
         path: "/upload",
-        element: <UploadView/>
+        element: <UploadView/>,
     },
     {
-        path: "/home",
-        element: <FeedView/>
-    },
-    {
-        path: "*",
-        element: <AuthForm/>
-
+      path: "/profile",
+      element: <Profile/>
     }
 ])
 
