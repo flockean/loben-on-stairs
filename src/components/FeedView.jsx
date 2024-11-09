@@ -316,7 +316,7 @@ export default function FeedView() {
           if (post.id === postId) {
             return {
               ...post,
-              comments: [...post.comments, { id: post.comments.length + 1, username: 'Neuer Nutzer', text: newComments[postId] }]
+              comments: [...post.comments, { id: post.comments.length + 1, username: 'Olaf', text: newComments[postId] }]
             };
           }
           return post;
