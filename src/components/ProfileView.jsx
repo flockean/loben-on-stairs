@@ -1,18 +1,12 @@
 'use client'
 
-import { useState } from 'react'
-import { Button } from "./ui/button"
-import { Input } from "./ui/input"
-import { Switch } from "./ui/switch"
-import { Home, Plus, User, ArrowLeft, Lock, Shield, LogOut } from "lucide-react"
-import { useNavigate } from 'react-router-dom'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "./ui/dialog"
+import {useState} from 'react'
+import {Button} from "./ui/button"
+import {Input} from "./ui/input"
+import {Switch} from "./ui/switch"
+import {Lock, LogOut, Shield, User} from "lucide-react"
+import {useNavigate} from 'react-router-dom'
+import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle,} from "./ui/dialog"
 import Navbar from "./Navbar";
 
 export default function Profile() {
