@@ -13,6 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "./ui/dialog"
+import Navbar from "./Navbar";
 
 export default function Profile() {
   const navigate = useNavigate()
@@ -135,19 +136,7 @@ export default function Profile() {
       </div>
 
       {/* Navigation Bar */}
-      <div className="fixed bottom-0 left-0 right-0 border-t bg-background">
-        <div className="flex justify-around p-4">
-          <Button variant="ghost" size="icon">
-            <Home className="h-6 w-6" />
-          </Button>
-          <Button variant="ghost" size="icon">
-            <Plus className="h-6 w-6" />
-          </Button>
-          <Button variant="ghost" size="icon">
-            <User className="h-6 w-6" />
-          </Button>
-        </div>
-      </div>
+      <Navbar/>
 
       {/* Password Change Popup */}
       <Dialog open={isPopupOpen} onOpenChange={setIsPopupOpen}>
