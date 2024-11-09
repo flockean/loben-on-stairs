@@ -4,19 +4,36 @@ import { useState } from 'react'
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 import { Switch } from "./ui/switch"
-import { Home, Plus, User, ArrowLeft, Lock, Shield } from "lucide-react"
+import { Home, Plus, User, ArrowLeft, Lock, Shield, LogOut } from "lucide-react"
+import { useNavigate } from 'react-router-dom'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "./ui/dialog"
 
 export default function Profile() {
+  const navigate = useNavigate()
   const [privacySettings, setPrivacySettings] = useState({
     visible: false,
     publicPraise: false,
     praiseTurnedOff: false,
   })
+  const [isPopupOpen, setIsPopupOpen] = useState(false)
 
   const handlePasswordChange = (e) => {
     e.preventDefault()
-    // Here you would typically handle the password change logic
-    console.log('Password change submitted')
+    // Show the popup
+    setIsPopupOpen(true)
+    // Close the popup after 2 seconds
+    setTimeout(() => setIsPopupOpen(false), 2000)
+  }
+
+  const handleLogout = () => {
+    console.log('Logging out')
+    navigate('/')
   }
 
   return (
@@ -104,6 +121,17 @@ export default function Profile() {
             </Button>
           </form>
         </div>
+
+        {/* Logout Button */}
+        <div className="space-y-4">
+          <Button
+            onClick={handleLogout}
+            className="w-full bg-red-600 text-white hover:bg-red-700 transition-colors duration-200"
+          >
+            <LogOut className="mr-2 h-5 w-5" />
+            Abmelden
+          </Button>
+        </div>
       </div>
 
       {/* Navigation Bar */}
@@ -120,6 +148,18 @@ export default function Profile() {
           </Button>
         </div>
       </div>
+
+      {/* Password Change Popup */}
+      <Dialog open={isPopupOpen} onOpenChange={setIsPopupOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Passwortänderung</DialogTitle>
+            <DialogDescription>
+              Passwort wurde erfolgreich geändert!
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
