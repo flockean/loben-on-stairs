@@ -17,8 +17,16 @@ const router = createBrowserRouter([
         element: <UploadView/>,
     },
     {
+      path: "/home",
+      element: <FeedView/>
+    },
+    {
       path: "/profile",
       element: <Profile/>
+    },
+    {
+        path: "/*",
+        element: <AuthForm/>
     }
 ])
 
