@@ -11,7 +11,7 @@ const MOCK_FEED = [
       username: 'Hans',
       avatar: Avatar1,
       image: feedImage1,
-      caption: 'Hans hat heute die Treppe mit guter Haltung erklommen!',
+      caption: 'hat heute die Treppe mit guter Haltung erklommen!',
       comments: [
         { id: 1, username: 'Fred', text: 'Das Rückgrat bleibt gesund – weiter so, Hans!' },
         { id: 2, username: 'Leo', text: 'Perfekte Haltung, Hans! Das motiviert.' },
@@ -22,7 +22,7 @@ const MOCK_FEED = [
       username: 'Peter',
       avatar: Avatar1,
       image: feedImage2,
-      caption: 'Peter hat es geschafft, die Treppe ohne Pause zu nehmen.',
+      caption: 'hat es geschafft, die Treppe ohne Pause zu nehmen.',
       comments: [
         { id: 1, username: 'Jürgen', text: 'Beeindruckend, Peter!' },
         { id: 2, username: 'Simon', text: 'Das nenne ich Ausdauer!' },
@@ -33,7 +33,7 @@ const MOCK_FEED = [
       username: 'Maria',
       avatar: Avatar1,
       image: feedImage1,
-      caption: 'Maria hat auf jeder Stufe ihr Tempo gehalten – gleichmäßig und ruhig!',
+      caption: 'hat auf jeder Stufe ihr Tempo gehalten – gleichmäßig und ruhig!',
       comments: [
         { id: 1, username: 'Sophie', text: 'Maria, das ist echte Konzentration!' },
         { id: 2, username: 'Lukas', text: 'Perfekte Balance, Maria!' },
@@ -44,7 +44,7 @@ const MOCK_FEED = [
       username: 'Max',
       avatar: Avatar1,
       image: feedImage2,
-      caption: 'Max hat die Treppe rückwärts bewältigt – das ist Koordination!',
+      caption: 'hat die Treppe rückwärts bewältigt – das ist Koordination!',
       comments: [
         { id: 1, username: 'Tina', text: 'Wow, Max – das ist Mut!' },
         { id: 2, username: 'Paul', text: 'Unkonventionell, aber beeindruckend!' },
@@ -55,7 +55,7 @@ const MOCK_FEED = [
       username: 'Lisa',
       avatar: Avatar1,
       image: feedImage1,
-      caption: 'Lisa hat heute die Treppen extra leise genommen. Rücksichtsvoll!',
+      caption: 'hat heute die Treppen extra leise genommen. Rücksichtsvoll!',
       comments: [
         { id: 1, username: 'Mara', text: 'Danke für deine Rücksicht, Lisa!' },
         { id: 2, username: 'Tom', text: 'Kaum gehört – toll!' },
@@ -66,7 +66,7 @@ const MOCK_FEED = [
       username: 'Klaus',
       avatar: Avatar1,
       image: feedImage2,
-      caption: 'Klaus hat heute jede zweite Stufe genommen – was für ein Sprung!',
+      caption: 'hat heute jede zweite Stufe genommen – was für ein Sprung!',
       comments: [
         { id: 1, username: 'Ben', text: 'Energie pur, Klaus!' },
         { id: 2, username: 'Susi', text: 'Sportlich unterwegs!' },
@@ -77,7 +77,7 @@ const MOCK_FEED = [
       username: 'Sabine',
       avatar: Avatar1,
       image: feedImage1,
-      caption: 'Sabine hat jede Stufe gezählt. Ein Zeichen der Achtsamkeit!',
+      caption: 'hat jede Stufe gezählt. Ein Zeichen der Achtsamkeit!',
       comments: [
         { id: 1, username: 'Martin', text: 'So fokussiert – das ist toll!' },
         { id: 2, username: 'Clara', text: 'Ein Schritt nach dem anderen – super, Sabine!' },
@@ -88,7 +88,7 @@ const MOCK_FEED = [
         username: 'Lena',
         avatar: Avatar1,
         image: feedImage1,
-        caption: 'Lena hat heute zwei Stockwerke ohne Pause geschafft!',
+        caption: 'hat heute zwei Stockwerke ohne Pause geschafft!',
         comments: [
           { id: 1, username: 'Anna', text: 'Top Leistung, Lena!' },
           { id: 2, username: 'Tom', text: 'Das ist Ausdauer pur!' },
@@ -99,7 +99,7 @@ const MOCK_FEED = [
         username: 'Marco',
         avatar: Avatar1,
         image: feedImage2,
-        caption: 'Marco ist die Treppe rückwärts gegangen – das nenne ich Geschick!',
+        caption: 'ist die Treppe rückwärts gegangen – das nenne ich Geschick!',
         comments: [
           { id: 1, username: 'Jana', text: 'Mutig, Marco!' },
           { id: 2, username: 'Tim', text: 'Wow, beeindruckend!' },
@@ -110,7 +110,7 @@ const MOCK_FEED = [
         username: 'Sarah',
         avatar: Avatar1,
         image: feedImage1,
-        caption: 'Sarah hat heute jede zweite Stufe ausgelassen!',
+        caption: 'hat heute jede zweite Stufe ausgelassen!',
         comments: [
           { id: 1, username: 'Klara', text: 'Du springst wie ein Reh, Sarah!' },
           { id: 2, username: 'Paul', text: 'Sportlich, sportlich!' },
@@ -132,7 +132,7 @@ const MOCK_FEED = [
         username: 'Anna',
         avatar: Avatar1,
         image: feedImage1,
-        caption: 'Anna hat heute besonders leise die Treppe genommen.',
+        caption: 'hat heute besonders leise die Treppe genommen.',
         comments: [
           { id: 1, username: 'Mia', text: 'So viel Rücksicht, Anna!' },
           { id: 2, username: 'Lukas', text: 'Das ist echt cool!' },
@@ -143,7 +143,7 @@ const MOCK_FEED = [
         username: 'Jörg',
         avatar: Avatar1,
         image: feedImage2,
-        caption: 'Jörg ist heute die Treppe im Dauerlauf hinauf!',
+        caption: 'ist heute die Treppe im Dauerlauf hinauf!',
         comments: [
           { id: 1, username: 'Dennis', text: 'Wow, das ist Energie!' },
           { id: 2, username: 'Sara', text: 'Mega Leistung, Jörg!' },
@@ -154,7 +154,7 @@ const MOCK_FEED = [
         username: 'Carla',
         avatar: Avatar1,
         image: feedImage1,
-        caption: 'Carla hat jede Stufe genau gezählt. Konzentration pur!',
+        caption: 'hat jede Stufe genau gezählt. Konzentration pur!',
         comments: [
           { id: 1, username: 'Ronja', text: 'Tolle Fokussierung!' },
           { id: 2, username: 'Ben', text: 'Perfekte Achtsamkeit, Carla!' },
@@ -165,7 +165,7 @@ const MOCK_FEED = [
         username: 'Frank',
         avatar: Avatar1,
         image: feedImage2,
-        caption: 'Frank hat die Treppe im langsamen, gleichmäßigen Tempo genommen.',
+        caption: 'hat die Treppe im langsamen, gleichmäßigen Tempo genommen.',
         comments: [
           { id: 1, username: 'Susi', text: 'Genau richtig für die Gelenke!' },
           { id: 2, username: 'Tom', text: 'Vorbildlich, Frank!' },
@@ -176,7 +176,7 @@ const MOCK_FEED = [
         username: 'Lara',
         avatar: Avatar1,
         image: feedImage1,
-        caption: 'Lara hat heute beim Treppensteigen gelächelt!',
+        caption: 'hat heute beim Treppensteigen gelächelt!',
         comments: [
           { id: 1, username: 'Nina', text: 'Das macht allen den Tag besser!' },
           { id: 2, username: 'Jan', text: 'Positive Energie, Lara!' },
@@ -187,7 +187,7 @@ const MOCK_FEED = [
         username: 'Erik',
         avatar: Avatar1,
         image: feedImage2,
-        caption: 'Erik ist die Treppe hinaufgegangen, ohne das Geländer anzufassen!',
+        caption: 'ist die Treppe hinaufgegangen, ohne das Geländer anzufassen!',
         comments: [
           { id: 1, username: 'Hannah', text: 'Was für ein Gleichgewichtssinn!' },
           { id: 2, username: 'Leo', text: 'Beeindruckend, Erik!' },
@@ -198,7 +198,7 @@ const MOCK_FEED = [
         username: 'Julia',
         avatar: Avatar1,
         image: feedImage1,
-        caption: 'Julia hat auf jeder Treppenstufe kurz innegehalten.',
+        caption: 'hat auf jeder Treppenstufe kurz innegehalten.',
         comments: [
           { id: 1, username: 'Paul', text: 'Achtsamkeit pur!' },
           { id: 2, username: 'Lisa', text: 'Das ist innere Ruhe, Julia!' },
@@ -220,7 +220,7 @@ const MOCK_FEED = [
         username: 'Tina',
         avatar: Avatar1,
         image: feedImage1,
-        caption: 'Tina hat es geschafft, die Treppe im Zickzack zu nehmen!',
+        caption: 'hat es geschafft, die Treppe im Zickzack zu nehmen!',
         comments: [
           { id: 1, username: 'Sina', text: 'Das erfordert Koordination!' },
           { id: 2, username: 'Lukas', text: 'Kreativ, Tina!' },
@@ -231,7 +231,7 @@ const MOCK_FEED = [
         username: 'Sebastian',
         avatar: Avatar1,
         image: feedImage2,
-        caption: 'Sebastian hat heute die Treppe besonders zügig erklommen!',
+        caption: 'hat heute die Treppe besonders zügig erklommen!',
         comments: [
           { id: 1, username: 'Anna', text: 'Super Geschwindigkeit!' },
           { id: 2, username: 'Markus', text: 'Respekt, Sebastian!' },
@@ -242,7 +242,7 @@ const MOCK_FEED = [
         username: 'Sven',
         avatar: Avatar1,
         image: feedImage1,
-        caption: 'Sven ist die Treppe mit schwerem Rucksack gestiegen. Respekt!',
+        caption: 'ist die Treppe mit schwerem Rucksack gestiegen. Respekt!',
         comments: [
           { id: 1, username: 'Paul', text: 'Ganz schön anstrengend, Sven!' },
           { id: 2, username: 'Maria', text: 'Tolles Training!' },
@@ -253,7 +253,7 @@ const MOCK_FEED = [
         username: 'Nina',
         avatar: Avatar1,
         image: feedImage2,
-        caption: 'Nina hat heute ihren Kollegen zum Treppensteigen motiviert!',
+        caption: 'hat heute ihren Kollegen zum Treppensteigen motiviert!',
         comments: [
           { id: 1, username: 'Mara', text: 'Was für ein Teamgeist!' },
           { id: 2, username: 'Oliver', text: 'Große Klasse, Nina!' },
@@ -264,7 +264,7 @@ const MOCK_FEED = [
         username: 'Oliver',
         avatar: Avatar1,
         image: feedImage1,
-        caption: 'Oliver hat jede Stufe mit Bedacht genommen. Vorbildlich!',
+        caption: 'hat jede Stufe mit Bedacht genommen. Vorbildlich!',
         comments: [
           { id: 1, username: 'Mona', text: 'Achtsamkeit pur!' },
           { id: 2, username: 'Lara', text: 'Perfekte Technik!' },
@@ -275,7 +275,7 @@ const MOCK_FEED = [
         username: 'Linda',
         avatar: Avatar1,
         image: feedImage2,
-        caption: 'Linda hat sich für jede Etage ein Ziel gesetzt!',
+        caption: 'hat sich für jede Etage ein Ziel gesetzt!',
         comments: [
           { id: 1, username: 'Ella', text: 'Das ist Motivation!' },
           { id: 2, username: 'Karl', text: 'Tolle Idee, Linda!' },
@@ -286,7 +286,7 @@ const MOCK_FEED = [
         username: 'Kurt',
         avatar: Avatar1,
         image: feedImage1,
-        caption: 'Kurt hat bei jedem Stockwerk einmal tief durchgeatmet.',
+        caption: 'hat bei jedem Stockwerk einmal tief durchgeatmet.',
         comments: [
           { id: 1, username: 'Rita', text: 'Richtig gute Atemtechnik!' },
           { id: 2, username: 'Ben', text: 'Das hält fit, Kurt!' },
@@ -297,7 +297,7 @@ const MOCK_FEED = [
         username: 'Sophia',
         avatar: Avatar1,
         image: feedImage2,
-        caption: 'Sophia hat die Treppe mit einem fröhlichen Pfeifen erklommen.',
+        caption: 'hat die Treppe mit einem fröhlichen Pfeifen erklommen.',
         comments: [
           { id: 1, username: 'Leon', text: 'Musik für die Ohren!' },
           { id: 2, username: 'Eva', text: 'Das macht gute Laune!' },
@@ -305,11 +305,11 @@ const MOCK_FEED = [
       },
 ];
 
-  
+
 export default function FeedView() {
     const [feed, setFeed] = useState(MOCK_FEED);
     const [newComments, setNewComments] = useState({});
-  
+
     const handleAddComment = (postId) => {
       if (newComments[postId]?.trim()) {
         const updatedFeed = feed.map(post => {
@@ -325,51 +325,51 @@ export default function FeedView() {
         setNewComments(prev => ({ ...prev, [postId]: '' }));
       }
     };
-  
+
     const handleCommentChange = (postId, value) => {
       setNewComments(prev => ({ ...prev, [postId]: value }));
     };
-  
+
     const handleReportPost = (postId) => {
       alert(`Post ${postId} wurde gemeldet.`);
     };
-  
+
     return (
       <div className="bg-gray-100 min-h-screen">
-        
+
         {/* Lila Header-Leiste */}
         <div className="fixed top-0 left-0 right-0 h-12 bg-purple-600 text-white flex justify-center items-center font-bold z-50">
           Feed
         </div>
-  
+
         <div className="pt-16 pb-16 mx-auto max-w-md">
           {/* Feed-Posts */}
           {feed.map((post) => (
             <div key={post.id} className="bg-white rounded-lg shadow-md mb-4 p-4">
-              
+
               {/* Post Header */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <img src={post.avatar} alt="avatar" className="w-10 h-10 rounded-full mr-3" />
                   <span className="font-bold">{post.username} hat Fred gelobt</span>
                 </div>
-  
+
                 {/* Melden-Button (Warnsymbol) */}
                 <button onClick={() => handleReportPost(post.id)} className="text-red-500 text-xl">
                   <FaExclamationTriangle />
                 </button>
               </div>
-  
+
               {/* Post Image */}
               <div className="mt-4">
                 <img src={post.image} alt="Post" className="w-full h-48 object-cover rounded-lg"/>
               </div>
-  
+
               {/* Caption */}
               <div className="mt-2 text-sm text-gray-700">
                 <strong>{post.username}</strong> {post.caption}
               </div>
-  
+
               {/* Comments & Kommentar Icon */}
               <div className="mt-4 flex justify-between items-center">
                 <div>
@@ -379,11 +379,11 @@ export default function FeedView() {
                     </div>
                   ))}
                 </div>
-  
+
                 {/* Kommentar Icon */}
                 <FaComment className="text-purple-600 text-xl" />
               </div>
-  
+
               {/* Kommentar-Eingabefeld für den jeweiligen Post */}
               <div className="mt-4 flex items-center space-x-2">
                 <input
@@ -393,7 +393,7 @@ export default function FeedView() {
                   onChange={(e) => handleCommentChange(post.id, e.target.value)}
                   className="flex-grow px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-purple-500"
                 />
-                <button 
+                <button
                   onClick={() => handleAddComment(post.id)}
                   className="bg-purple-600 text-white px-4 py-2 rounded-lg"
                 >
@@ -402,7 +402,7 @@ export default function FeedView() {
               </div>
             </div>
           ))}
-  
+
           {/* Navbar */}
           <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg py-3 flex justify-around items-center z-50">
             <Navbar />
@@ -411,4 +411,3 @@ export default function FeedView() {
       </div>
     );
   }
-  
