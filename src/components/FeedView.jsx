@@ -4,6 +4,7 @@ import Avatar1 from '../assets/images/avatar-1.jpg';
 import feedImage1 from '../assets/images/stairs-1.jpg';
 import feedImage2 from '../assets/images/stairs-2.jpg';
 import { FaExclamationTriangle, FaComment} from 'react-icons/fa';
+import HeaderBar from "./HeaderBar";
 
 const MOCK_FEED = [
     {
@@ -336,11 +337,7 @@ export default function FeedView() {
 
     return (
       <div className="bg-gray-100 min-h-screen">
-
-        {/* Lila Header-Leiste */}
-        <div className="fixed top-0 left-0 right-0 h-12 bg-purple-600 text-white flex justify-center items-center font-bold z-50">
-          Feed
-        </div>
+        <HeaderBar title="Feed"/>
 
         <div className="pt-16 pb-16 mx-auto max-w-md">
           {/* Feed-Posts */}

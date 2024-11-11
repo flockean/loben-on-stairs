@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
+import HeaderBar from "./HeaderBar";
 
 export default function AuthForm() {
     const [isLogin, setIsLogin] = useState(true);
@@ -113,10 +114,9 @@ export default function AuthForm() {
     };
 
     return (
-        <div style={styles.container}>
-            <div style={styles.header}>
-                <div style={styles.headerText}>{isLogin ? 'Login' : 'Register'}</div>
-            </div>
+        <div>
+            <HeaderBar style={styles.headerText} title={isLogin ? 'Login' : 'Register'}/>
+            <div style={styles.container}>
 
             <div style={styles.title}>
                 Loben App<br />
@@ -189,6 +189,7 @@ export default function AuthForm() {
             </div>
 
             <a href="#" style={styles.link}>Gastlogin</a>
+            </div>
         </div>
     );
 }
