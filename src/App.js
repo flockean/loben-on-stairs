@@ -8,7 +8,7 @@ import Profile from "./components/ProfileView";
 
 import {addRxPlugin} from 'rxdb';
 import {RxDBDevModePlugin} from 'rxdb/plugins/dev-mode';
-import {createLobenDB} from "./logic/setup-database";
+import {createLobenDB} from "./logic/database-tools";
 
 addRxPlugin(RxDBDevModePlugin);
 

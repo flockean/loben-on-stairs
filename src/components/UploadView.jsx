@@ -3,18 +3,19 @@
 import {useState} from 'react'
 import {Upload as UploadIcon, User} from "lucide-react"
 import Navbar from "./Navbar";
+import Avatar1 from '../assets/images/avatar-1.jpg';
 
 // Mock user data
 const MOCK_USERS = [
-    { id: '1', name: 'Lucas', avatar: '/placeholder.svg?height=40&width=40' },
-    { id: '2', name: 'Leo', avatar: '/placeholder.svg?height=40&width=40' },
-    { id: '3', name: 'Andi', avatar: '/placeholder.svg?height=40&width=40' },
-    { id: '4', name: 'Max', avatar: '/placeholder.svg?height=40&width=40' },
-    { id: '5', name: 'Ronny', avatar: '/placeholder.svg?height=40&width=40' },
-    { id: '6', name: 'Simon', avatar: '/placeholder.svg?height=40&width=40' },
-    { id: '7', name: 'DerWildePeter', avatar: '/placeholder.svg?height=40&width=40' },
-    { id: '8', name: 'Olaf', avatar: '/placeholder.svg?height=40&width=40' },
-    { id: '9', name: 'HeiligerSprinterX', avatar: '/placeholder.svg?height=40&width=40' },
+    { id: '1', name: 'Lucas', avatar: Avatar1 },
+    { id: '2', name: 'Leo', avatar: Avatar1 },
+    { id: '3', name: 'Andi', avatar: Avatar1 },
+    { id: '4', name: 'Max', avatar: Avatar1 },
+    { id: '5', name: 'Ronny', avatar: Avatar1 },
+    { id: '6', name: 'Simon', avatar: Avatar1 },
+    { id: '7', name: 'DerWildePeter', avatar: Avatar1 },
+    { id: '8', name: 'Olaf', avatar: Avatar1 },
+    { id: '9', name: 'HeiligerSprinterX', avatar: Avatar1 },
 ]
 
 export default function UploadView() {

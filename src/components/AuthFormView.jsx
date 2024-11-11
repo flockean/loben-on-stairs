@@ -26,6 +26,12 @@ export default function AuthForm() {
         navigate('/home')
     }
 
+    const registerUser = async () => {
+        if (formData.password === formData.confirmPassword) {
+            await setUser(formData.username, formData.password)
+        }
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -58,6 +64,14 @@ export default function AuthForm() {
             throw "Incorrect UserData"
         }
         return userValue
+    }
+
+    async function setUser (name: String, password: String): Promise<RxDocument> {
+        const userCollection = (await rxLobenDatabase).user;
+        userCollection.insert({
+            name: name,
+            password: password
+        });
     }
 
     const toggleForm = () => {
@@ -194,7 +208,7 @@ export default function AuthForm() {
                     </div>
                 )}
 
-                <button type="submit" style={styles.button}>
+                <button onClick={registerUser} type="submit" style={styles.button}>
                     {isLogin ? 'Einloggen' : 'Registieren'}
                 </button>
             </form>
