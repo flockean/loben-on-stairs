@@ -46,7 +46,7 @@ export default function FeedView() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <img src={post.avatar} alt="avatar" className="w-10 h-10 rounded-full mr-3" />
-                  <span className="font-bold">{post.username} wurde von Fred gelobt</span>
+                  <span className="font-bold">{post.username} wurde von Anonymous gelobt</span>
                 </div>
 
                 {/* Melden-Button (Warnsymbol) */}
