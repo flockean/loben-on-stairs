@@ -5,6 +5,7 @@ import {Upload as UploadIcon, User} from "lucide-react"
 import Navbar from "./Navbar";
 import Avatar1 from '../assets/images/avatar-1.jpg';
 import {MOCK_FEED} from "../logic/registerMocks";
+import HeaderBar from "./HeaderBar";
 
 // Mock user data
 const MOCK_USERS = [
@@ -71,10 +72,9 @@ export default function UploadView() {
     return (
         <div>
             {/* Header */}
-            <div className="w-full mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-                <div className="bg-purple-500 text-white p-3 text-center">
-                    Upload {step}
-                </div>
+            <div className="grid w-full mx-auto bg-white shadow-lg overflow-hidden">
+                <HeaderBar title={`Upload ${step}`}/>
+
 
                 {/* User Selection Bar */}
                 <div

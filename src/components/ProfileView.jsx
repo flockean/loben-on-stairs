@@ -8,6 +8,7 @@ import {Lock, LogOut, Shield, User} from "lucide-react"
 import {useNavigate} from 'react-router-dom'
 import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle,} from "./ui/dialog"
 import Navbar from "./Navbar";
+import HeaderBar from "./HeaderBar";
 
 export default function Profile() {
   const navigate = useNavigate()
@@ -33,6 +34,7 @@ export default function Profile() {
 
   return (
     <div className="min-h-screen bg-background">
+      <HeaderBar title="Profile"/>
       {/* Header */}
       <div className="border-b">
         <div className="flex items-center p-4">

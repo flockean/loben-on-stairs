@@ -34,11 +34,7 @@ export default function FeedView() {
 
     return (
       <div className="bg-gray-100 min-h-screen">
-
-        {/* Lila Header-Leiste */}
-        <div className="fixed top-0 left-0 right-0 h-12 bg-purple-600 text-white flex justify-center items-center font-bold z-50">
-          Feed
-        </div>
+        <HeaderBar style="fixed" title="Feed"/>
 
         <div className="pt-16 pb-16 mx-auto max-w-md">
           {/* Feed-Posts */}
