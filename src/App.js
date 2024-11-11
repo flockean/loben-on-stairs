@@ -13,7 +13,6 @@ import {createLobenDB} from "./logic/setup-database";
 addRxPlugin(RxDBDevModePlugin);
 
 export const rxLobenDatabase = createLobenDB()
-export let currentUser = "Anonymous";
 const router = createBrowserRouter([
     {
         path: "/",

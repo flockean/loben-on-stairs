@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import {currentUser, rxLobenDatabase} from "../App";
+import {rxLobenDatabase} from "../App";
 import {RxDocument} from "rxdb";
 
 
@@ -22,6 +22,10 @@ export default function AuthForm() {
         }));
     };
 
+    const loginAsGuest = async () => {
+        navigate('/home')
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -34,7 +38,6 @@ export default function AuthForm() {
             const user = await getUser(formData.username)
 
             if (user.get('password') === formData.password) {
-                currentUser = user.get("name")
                 navigate('/home')
             }
             else alert('Login Daten scheinen falsch zu sein!')
@@ -214,7 +217,7 @@ export default function AuthForm() {
                 )}
             </div>
 
-            <a href="#" style={styles.link}>Gastlogin</a>
+            <a onClick={loginAsGuest} style={styles.link}>Gastlogin</a>
         </div>
     );
 }
