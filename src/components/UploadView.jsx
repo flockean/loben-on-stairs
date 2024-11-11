@@ -60,8 +60,9 @@ export default function UploadView() {
     return (
         <div>
             {/* Header */}
-            <div className="w-full mx-auto bg-white shadow-lg overflow-hidden">
+            <div className="grid w-full mx-auto bg-white shadow-lg overflow-hidden">
                 <HeaderBar title={`Upload ${step}`}/>
+
 
                 {/* User Selection Bar */}
                 <div

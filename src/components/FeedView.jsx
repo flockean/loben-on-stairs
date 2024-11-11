@@ -337,7 +337,7 @@ export default function FeedView() {
 
     return (
       <div className="bg-gray-100 min-h-screen">
-        <HeaderBar title="Feed"/>
+        <HeaderBar style="fixed" title="Feed"/>
 
         <div className="pt-16 pb-16 mx-auto max-w-md">
           {/* Feed-Posts */}
