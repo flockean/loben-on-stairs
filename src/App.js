@@ -6,7 +6,14 @@ import FeedView from "./components/FeedView";
 import React from "react";
 import Profile from "./components/ProfileView";
 
+import {addRxPlugin} from 'rxdb';
+import {RxDBDevModePlugin} from 'rxdb/plugins/dev-mode';
+import {createLobenDB} from "./logic/setup-database";
 
+addRxPlugin(RxDBDevModePlugin);
+
+export const rxLobenDatabase = createLobenDB()
+export let currentUser = "Anonymous";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -35,5 +42,4 @@ function App() {
       <RouterProvider router={router}/>
   );
 }
-
 export default App;

@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
+import {currentUser, rxLobenDatabase} from "../App";
+import {RxDocument} from "rxdb";
+
 
 export default function AuthForm() {
     const [isLogin, setIsLogin] = useState(true);
@@ -19,17 +22,40 @@ export default function AuthForm() {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
         if (!isLogin && formData.password !== formData.confirmPassword) {
             alert('Passwords do not match');
             return;
         }
+
+        try {
+            const user = await getUser(formData.username)
+
+            if (user.get('password') === formData.password) {
+                currentUser = user.get("name")
+                navigate('/home')
+            }
+            else alert('Login Daten scheinen falsch zu sein!')
+        }
+        catch(err) {
+            alert('Login Daten scheinen falsch zu sein: ' + err.toString())
+        }
         console.log(isLogin ? 'Login' : 'Registration', 'attempted with:', formData);
 
-        navigate("/home")
-
     };
+
+    async function getUser (id: String): Promise<RxDocument> {
+        const userCollection = (await rxLobenDatabase).user;
+        const query = userCollection.findOne(id);
+        const userValue = await query.exec()
+        if (userValue === null) {
+            // eslint-disable-next-line no-throw-literal
+            throw "Incorrect UserData"
+        }
+        return userValue
+    }
 
     const toggleForm = () => {
         setIsLogin(!isLogin);
