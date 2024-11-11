@@ -4,6 +4,7 @@ import {useState} from 'react'
 import {Upload as UploadIcon, User} from "lucide-react"
 import Navbar from "./Navbar";
 import Avatar1 from '../assets/images/avatar-1.jpg';
+import {MOCK_FEED} from "../logic/registerMocks";
 
 // Mock user data
 const MOCK_USERS = [
@@ -48,9 +49,19 @@ export default function UploadView() {
     }
 
     const handleSubmit = async () => {
+        MOCK_FEED.push({
+            id: 28,
+            username: selectedUser.name,
+            avatar: Avatar1,
+            image: URL.createObjectURL(mediaFile),
+            caption: caption,
+            comments: [{ id: 1, username: 'Rita', text: 'Richtig gute Atemtechnik!' },
+                { id: 2, username: 'Ben', text: 'Das hält fit, Kurt!' },
+            ]
+        })
         // Here you would implement the actual upload logic
         console.log({
-            user: selectedUser,
+            user: selectedUser.name,
             caption,
             options,
             mediaFile
