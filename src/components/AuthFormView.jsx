@@ -26,11 +26,6 @@ export default function AuthForm() {
         navigate('/home')
     }
 
-    const registerUser = async () => {
-        if (formData.password === formData.confirmPassword) {
-            await setUser(formData.username, formData.password)
-        }
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -39,17 +34,25 @@ export default function AuthForm() {
             alert('Passwords do not match');
             return;
         }
-
-        try {
-            const user = await getUser(formData.username)
-
-            if (user.get('password') === formData.password) {
+        if (!isLogin && formData.password === formData.confirmPassword) {
+            try {
+                await setUser(formData.username, formData.password)
                 navigate('/home')
             }
-            else alert('Login Daten scheinen falsch zu sein!')
+            catch (err) {
+                alert('Error during Registration')
+            }
         }
-        catch(err) {
-            alert('Login Daten scheinen falsch zu sein: ' + err.toString())
+        if (isLogin) {
+            try {
+                const user = await getUser(formData.username)
+
+                if (user.get('password') === formData.password) {
+                    navigate('/home')
+                } else alert('Login Daten scheinen falsch zu sein!')
+            } catch (err) {
+                alert('Login Daten scheinen falsch zu sein: ' + err.toString())
+            }
         }
         console.log(isLogin ? 'Login' : 'Registration', 'attempted with:', formData);
 
@@ -208,7 +211,7 @@ export default function AuthForm() {
                     </div>
                 )}
 
-                <button onClick={registerUser} type="submit" style={styles.button}>
+                <button type="submit" style={styles.button}>
                     {isLogin ? 'Einloggen' : 'Registieren'}
                 </button>
             </form>
