@@ -32,9 +32,6 @@ export async function createLobenDB() : Promise<RxDatabase> {
     }
     console.log("Anonymous already added")
 
-
-
-
     // const lobenServer = await createRxServer({
     //     database: lobenDatabase,
     //     adapter: RxServerAdapterExpress,
@@ -43,13 +40,13 @@ export async function createLobenDB() : Promise<RxDatabase> {
     // console.log("RxServer started")
     //
     // const feedEndpoint = lobenServer.addReplicationEndpoint({
-    //     name: 'my-endpoint',
+    //     name: 'feedEndpoint',
     //     collection: feedSchema
     // });
     // console.log("feedEndpoint created" + feedEndpoint.toString())
     //
     // const userEndpoint = lobenServer.addReplicationEndpoint({
-    //     name: 'my-endpoint',
+    //     name: 'userEndpoint',
     //     collection: userSchema
     // });
     // console.log("userEndpoint created" + userEndpoint.toString())
