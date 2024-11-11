@@ -40,10 +40,10 @@ export default function Profile() {
         <div className="flex items-center p-4">
           <User className="h-8 w-8 mr-2" />
           <div>
-            <h2 className="font-semibold">HansRenner123</h2>
+            <h2 className="font-semibold">Anonymous</h2>
             <div className="flex gap-4 text-sm text-muted-foreground">
-              <span>2 Gelobt</span>
-              <span>10 Lobe</span>
+              <span>0 Gelobt</span>
+              <span>28 Lobe</span>
             </div>
           </div>
         </div>
