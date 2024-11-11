@@ -39,7 +39,7 @@ export default function FeedView() {
 
         <div className="pt-16 pb-16 mx-auto max-w-md">
           {/* Feed-Posts */}
-          {feed.map((post) => (
+          {feed.slice().reverse().map((post) => (
             <div key={post.id} className="bg-white rounded-lg shadow-md mb-4 p-4">
 
               {/* Post Header */}

@@ -3,16 +3,17 @@ import feedImage1 from "../assets/images/stairs-1.jpg";
 import feedImage2 from "../assets/images/stairs-2.jpg";
 
 
-interface Post {
+export interface Post {
     id: string,
     username: string,
     avatar: URL,
     image: URL,
     caption: string,
+    // eslint-disable-next-line no-use-before-define
     comments: Comment[]
 }
 
-interface Comment {
+export interface Comment {
     id: string,
     username: string,
     text: string

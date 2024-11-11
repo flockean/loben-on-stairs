@@ -6,6 +6,8 @@ import Navbar from "./Navbar";
 import Avatar1 from '../assets/images/avatar-1.jpg';
 import {MOCK_FEED} from "../logic/registerMocks";
 import HeaderBar from "./HeaderBar";
+import type {Post} from "../logic/registerMocks";
+import {useNavigate} from "react-router-dom";
 
 // Mock user data
 const MOCK_USERS = [
@@ -32,6 +34,7 @@ export default function UploadView() {
         phoneAway: false,
         handrail: false,
     })
+    const navigator = useNavigate()
 
     const filteredUsers = MOCK_USERS.filter(user =>
         user.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -49,17 +52,23 @@ export default function UploadView() {
         }
     }
 
+    function addNewPostToFeed(newPost: Post) {
+        const highestId = MOCK_FEED.reduce((maxId, post) => Math.max(maxId, post.id), 0);
+        newPost.id = highestId + 1;
+        MOCK_FEED.push(newPost);
+    }
+
     const handleSubmit = async () => {
-        MOCK_FEED.push({
+        let uploadPost: Post = {
             id: 28,
             username: selectedUser.name,
             avatar: Avatar1,
             image: URL.createObjectURL(mediaFile),
             caption: caption,
-            comments: [{ id: 1, username: 'Rita', text: 'Richtig gute Atemtechnik!' },
-                { id: 2, username: 'Ben', text: 'Das hält fit, Kurt!' },
-            ]
-        })
+            comments: []
+        }
+        addNewPostToFeed(uploadPost)
+        navigator("/home")
         // Here you would implement the actual upload logic
         console.log({
             user: selectedUser.name,
@@ -67,6 +76,7 @@ export default function UploadView() {
             options,
             mediaFile
         })
+        navigator("/home")
     }
 
     return (
