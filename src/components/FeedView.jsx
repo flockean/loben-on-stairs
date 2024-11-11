@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Navbar from './Navbar';
 import {FaComment, FaExclamationTriangle} from 'react-icons/fa';
 import {MOCK_FEED} from "../logic/registerMocks";
+import HeaderBar from "./HeaderBar";
 
 
 export default function FeedView() {
@@ -34,7 +35,7 @@ export default function FeedView() {
 
     return (
       <div className="bg-gray-100 min-h-screen">
-        <HeaderBar style="fixed" title="Feed"/>
+        <HeaderBar ClassName={"fixed"} title="Feed"/>
 
         <div className="pt-16 pb-16 mx-auto max-w-md">
           {/* Feed-Posts */}

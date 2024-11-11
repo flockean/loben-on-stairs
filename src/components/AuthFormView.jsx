@@ -143,6 +143,7 @@ export default function AuthForm() {
         },
         link: {
             display: 'block',
+            justifySelf: 'center',
             textAlign: 'center',
             marginTop: '15px',
             color: '#333',
@@ -234,7 +235,7 @@ export default function AuthForm() {
                 )}
             </div>
 
-                <a onClick={loginAsGuest} style={styles.link}>Gastlogin</a>
+                <button onClick={loginAsGuest} style={styles.link}>Gastlogin</button>
             </div>
         </div>
     );
