@@ -3,18 +3,23 @@
 import {useState} from 'react'
 import {Upload as UploadIcon, User} from "lucide-react"
 import Navbar from "./Navbar";
+import Avatar1 from '../assets/images/avatar-1.jpg';
+import {MOCK_FEED} from "../logic/registerMocks";
+import HeaderBar from "./HeaderBar";
+import type {Post} from "../logic/registerMocks";
+import {useNavigate} from "react-router-dom";
 
 // Mock user data
 const MOCK_USERS = [
-    { id: '1', name: 'Lucas', avatar: '/placeholder.svg?height=40&width=40' },
-    { id: '2', name: 'Leo', avatar: '/placeholder.svg?height=40&width=40' },
-    { id: '3', name: 'Andi', avatar: '/placeholder.svg?height=40&width=40' },
-    { id: '4', name: 'Max', avatar: '/placeholder.svg?height=40&width=40' },
-    { id: '5', name: 'Ronny', avatar: '/placeholder.svg?height=40&width=40' },
-    { id: '6', name: 'Simon', avatar: '/placeholder.svg?height=40&width=40' },
-    { id: '7', name: 'DerWildePeter', avatar: '/placeholder.svg?height=40&width=40' },
-    { id: '8', name: 'Olaf', avatar: '/placeholder.svg?height=40&width=40' },
-    { id: '9', name: 'HeiligerSprinterX', avatar: '/placeholder.svg?height=40&width=40' },
+    { id: '1', name: 'Lucas', avatar: Avatar1 },
+    { id: '2', name: 'Leo', avatar: Avatar1 },
+    { id: '3', name: 'Andi', avatar: Avatar1 },
+    { id: '4', name: 'Max', avatar: Avatar1 },
+    { id: '5', name: 'Ronny', avatar: Avatar1 },
+    { id: '6', name: 'Simon', avatar: Avatar1 },
+    { id: '7', name: 'DerWildePeter', avatar: Avatar1 },
+    { id: '8', name: 'Olaf', avatar: Avatar1 },
+    { id: '9', name: 'HeiligerSprinterX', avatar: Avatar1 },
 ]
 
 export default function UploadView() {
@@ -29,6 +34,7 @@ export default function UploadView() {
         phoneAway: false,
         handrail: false,
     })
+    const navigator = useNavigate()
 
     const filteredUsers = MOCK_USERS.filter(user =>
         user.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -46,23 +52,39 @@ export default function UploadView() {
         }
     }
 
+    function addNewPostToFeed(newPost: Post) {
+        const highestId = MOCK_FEED.reduce((maxId, post) => Math.max(maxId, post.id), 0);
+        newPost.id = highestId + 1;
+        MOCK_FEED.push(newPost);
+    }
+
     const handleSubmit = async () => {
+        let uploadPost: Post = {
+            id: 28,
+            username: selectedUser.name,
+            avatar: Avatar1,
+            image: URL.createObjectURL(mediaFile),
+            caption: caption,
+            comments: []
+        }
+        addNewPostToFeed(uploadPost)
+        navigator("/home")
         // Here you would implement the actual upload logic
         console.log({
-            user: selectedUser,
+            user: selectedUser.name,
             caption,
             options,
             mediaFile
         })
+        navigator("/home")
     }
 
     return (
         <div>
             {/* Header */}
-            <div className="w-full mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-                <div className="bg-purple-500 text-white p-3 text-center">
-                    Upload {step}
-                </div>
+            <div className="grid w-full mx-auto bg-white shadow-lg overflow-hidden">
+                <HeaderBar title={`Upload ${step}`}/>
+
 
                 {/* User Selection Bar */}
                 <div
