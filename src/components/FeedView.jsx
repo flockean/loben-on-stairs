@@ -62,7 +62,7 @@ export default function FeedView() {
 
               {/* Caption */}
               <div className="mt-2 text-sm text-gray-700">
-                <strong>{post.username}</strong> {post.caption}
+                <strong>{post.caption}</strong>
               </div>
 
               {/* Comments & Kommentar Icon */}
