@@ -1,18 +1,22 @@
 import {createRxDatabase, RxDatabase} from 'rxdb';
 import {getRxStorageDexie} from 'rxdb/plugins/storage-dexie';
 import {feedSchema, userSchema} from "./collections";
+import {wrappedKeyEncryptionCryptoJsStorage} from "rxdb/plugins/encryption-crypto-js";
 
 // import {createRxServer} from 'rxdb-server/plugins/server';
 // import {RxServerAdapterExpress} from 'rxdb-server/plugins/adapter-express';
 
-const dbPassword = process.env.DB_PASSWORD;
+
+const encryptedDexieStorage = wrappedKeyEncryptionCryptoJsStorage({
+    storage: getRxStorageDexie()
+});
 
 export async function createLobenDB() : Promise<RxDatabase> {
     const lobenDatabase = await createRxDatabase({
         name: 'lobendatabase',
-        storage: getRxStorageDexie(),
-
-        password: dbPassword,
+        storage: encryptedDexieStorage,
+        // This is cursed, change to env variable if possible e.g. process.env.VAR (does not work on my machine ;( )
+        password: "LobenOnStairs123",
         multiInstance: true
     });
     console.log("Database created")

@@ -41,6 +41,7 @@ export default function AuthForm() {
                 navigate('/home')
             }
             catch (err) {
+                console.log(err)
                 alert('Error during Registration')
             }
         }

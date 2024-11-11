@@ -61,11 +61,12 @@ export const userSchema = {
                 lobe: {
                     type: 'string'
                 },
-                geLobt: {
+                gelobt: {
                     type: 'string'
                 }
             }
         },
     },
-    required: ['name', 'password']
+    required: ['name', 'password'],
+    encrypted: ['password']
 }
