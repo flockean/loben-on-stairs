@@ -57,7 +57,7 @@ export default function FeedView() {
 
               {/* Post Image */}
               <div className="mt-4">
-                <img src={post.image} alt="Post" className="w-full h-48 object-cover rounded-lg"/>
+                <img src={post.image} alt="Post" className="w-full max-h-96 object-cover rounded-lg"/>
               </div>
 
               {/* Caption */}
