@@ -68,3 +68,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### Initialize Backend Database
+Init Database via Docker
+
+Create Network for Application
+`docker network create -d bridge loben-net`
+
+MongoDB Initialize
+`docker run --network loben-net -p 27017:27017 --name mongo -d mongo:latest`
+
+UI for MongoDB Backend (user and password need to be injected as env-var for security reasons)
+`docker run --network loben-net -p 8081:8081 mongo-express`

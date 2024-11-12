@@ -38,6 +38,7 @@ export const feedSchema = {
             }
         },
         attachments: {
+            encrypted: true // Posted Picture / gif
         }
     },
     required: ['id', 'username', 'fromUsername', 'caption', 'timestamp', 'attachments']
@@ -65,6 +66,9 @@ export const userSchema = {
                     type: 'string'
                 }
             }
+        },
+        attachments: {
+            encrypted: true // Avatar
         },
     },
     required: ['name', 'password'],
