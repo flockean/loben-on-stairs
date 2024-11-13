@@ -54,14 +54,15 @@ const SocialPost = ({ post }) => {
                     alt="Post image"
                     className="w-full object-cover"
                 />
-                <p className="p-4 text-sm">{post.caption}</p>
+                <p className="p-2 text-sm">{post.caption}</p>
             </div>
-            <div className="flex flex-col gap-4 p-4 border-t">
+            <div className="flex flex-col gap-4 p-2 border-t">
                 <div className="w-full space-y-2">
                     {comments.map((comment) => (
-                        <div key={comment.id} className="flex gap-2 text-sm">
-                            <span className="font-medium">{comment.username}</span>
+                        <div key={comment.id} className="flex flex-wrap gap-2 text-sm">
+                            <span className="font-medium">{comment.username}:</span>
                             <span>{comment.text}</span>
+                            <button onClick={handleReport} className="self-end"> <Flag className="h-4 w-4"/> </button>
                         </div>
                     ))}
                 </div>
