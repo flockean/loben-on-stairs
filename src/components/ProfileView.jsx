@@ -9,6 +9,7 @@ import {useNavigate} from 'react-router-dom'
 import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle,} from "./ui/dialog"
 import Navbar from "./Navbar";
 import HeaderBar from "./HeaderBar";
+import {getCurrentUser, logout} from "../logic/userService";
 
 export default function Profile() {
   const navigate = useNavigate()
@@ -28,6 +29,7 @@ export default function Profile() {
   }
 
   const handleLogout = () => {
+    logout()
     console.log('Logging out')
     navigate('/')
   }
@@ -40,7 +42,7 @@ export default function Profile() {
         <div className="flex items-center p-4">
           <User className="h-8 w-8 mr-2" />
           <div>
-            <h2 className="font-semibold">Anonymous</h2>
+            <h2 className="font-semibold">{getCurrentUser()}</h2>
             <div className="flex gap-4 text-sm text-muted-foreground">
               <span>0 Gelobt</span>
               <span>28 Lobe</span>
