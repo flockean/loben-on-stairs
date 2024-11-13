@@ -15,7 +15,7 @@ export default function FeedView() {
         <div className="pt-16 pb-16 mx-auto max-w-md">
           {/* Feed-Posts */}
           {feed.slice().reverse().map((post) => (
-              <SocialPost className="gap-4" post={post}/>
+              <SocialPost key={post.id} className="gap-4" post={post}/>
           ))}
 
           {/* Navbar */}
