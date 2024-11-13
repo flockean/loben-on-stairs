@@ -21,20 +21,43 @@ export async function createLobenDB() : Promise<RxDatabase> {
     });
     console.log("Database created")
 
-    const collections = await lobenDatabase.addCollections({
+    await lobenDatabase.addCollections({
         feed: {name: 'feed', schema: feedSchema},
         user: {name: 'user', schema: userSchema}
     });
     console.log("Collections added")
 
-    if (collections.user.findOne('Anonymous') === null) {
+    try {
         const UserAnon = await lobenDatabase.user.insert({
             name: 'Anonymous',
             password: 'Anonymous'
-        })
-        console.log("Anonymous added: " + UserAnon.name)
+        });
+        console.log("Anonymous added: " + UserAnon.name);
+    } catch (err) {
+        console.log("Anonymous is already added");
     }
-    console.log("Anonymous already added")
+
+    // This Smashes the Browser of the User with Mock-Data, find Workaround
+
+    // try {
+    //     MOCK_FEED.map(async post => {
+    //         try {
+    //         await lobenDatabase.feed.insert({
+    //             id: post.id,
+    //             username: post.username,
+    //             fromUsername: 'Anonymous',
+    //             caption: post.caption,
+    //             timestamp: new Date().toISOString(),
+    //             comments: post.comments
+    //         })
+    //     } catch (err) {
+    //             console.log("I Love try catch")
+    //         }
+    //     })
+    // } catch (err) {
+    //     console.log(err)
+    // }
+
 
     // const lobenServer = await createRxServer({
     //     database: lobenDatabase,

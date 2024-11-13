@@ -12,7 +12,7 @@ import {createLobenDB} from "./logic/databaseTools";
 
 addRxPlugin(RxDBDevModePlugin);
 
-export const rxLobenDatabase = createLobenDB()
+export const rxLobenDatabase = await createLobenDB()
 const router = createBrowserRouter([
     {
         path: "/",

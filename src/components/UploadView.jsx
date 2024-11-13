@@ -211,10 +211,11 @@ export default function UploadView() {
             </div>
 
             {/* Footer */}
-            <div className="border-t p-4 flex justify-between">
+            <div className="fixed w-full bottom-20">
+            <div className="p-4 flex justify-between">
                 <button
                     onClick={() => setStep(Math.max(1, step - 1))}
-                    className="px-4 py-2 border rounded-lg"
+                    className="px-4 py-2 border border-black rounded-lg bg-gray-100"
                 >
                     Zurück
                 </button>
@@ -223,11 +224,12 @@ export default function UploadView() {
                         if (step < 4) setStep(step + 1)
                         else handleSubmit()
                     }}
-                    className="px-4 py-2 border rounded-lg bg-gray-100"
+                    className="px-4 py-2 border border-black rounded-lg bg-gray-100"
                 >
                     {step < 4 ? 'Weiter' : 'Post'}
                 </button>
             </div>
+        </div>
         <Navbar/>
         </div>
     )
