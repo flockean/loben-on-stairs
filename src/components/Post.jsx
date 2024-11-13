@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Flag, Send } from 'lucide-react';
+import React, {useEffect, useState} from 'react';
+import {Flag, Send} from 'lucide-react';
+
 
 const SocialPost = ({ post }) => {
     const [comments, setComments] = useState([]);
@@ -12,15 +13,15 @@ const SocialPost = ({ post }) => {
     }, [post]);
 
     const handleReport = () => {
-        alert(`${post.id} wurde gemeldet`)
-
+        alert(`Der Post mit der ID: ${post.id} mit seinen Kommentaren wurde gemeldet und wird vom Support überprüft.`)
     }
+
     const handleSubmitComment = (e) => {
         e.preventDefault();
         if (!newComment.trim()) return;
 
         const newCommentObj = {
-            id: crypto.randomUUID(),
+            id: comments.reduce((maxId, post) => Math.max(maxId, post.id), 0) + 1,
             username: 'Anonymous',
             text: newComment.trim()
         };
@@ -42,7 +43,7 @@ const SocialPost = ({ post }) => {
                     className="w-10 h-10 rounded-full"
                 />
                 <div className="flex-1">
-                    <p className="text-sm font-medium">{post.username} wurde von Anonymous gelobt</p>
+                    <p className="text-m font-bold">{post.username} wurde von Anonymous gelobt</p>
                 </div>
                 <button onClick={handleReport} className="text-gray-500 hover:text-gray-700">
                     <Flag className="h-4 w-4"/>
@@ -62,7 +63,6 @@ const SocialPost = ({ post }) => {
                         <div key={comment.id} className="flex flex-wrap gap-2 text-sm">
                             <span className="font-medium">{comment.username}:</span>
                             <span>{comment.text}</span>
-                            <button onClick={handleReport} className="self-end"> <Flag className="h-4 w-4"/> </button>
                         </div>
                     ))}
                 </div>
