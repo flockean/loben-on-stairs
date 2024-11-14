@@ -4,6 +4,7 @@ import {rxLobenDatabase} from "../App";
 import {RxDocument} from "rxdb";
 
 import HeaderBar from "./HeaderBar";
+import {login} from "../logic/userService";
 
 export default function AuthForm() {
     const [isLogin, setIsLogin] = useState(true);
@@ -24,6 +25,7 @@ export default function AuthForm() {
     };
 
     const loginAsGuest = async () => {
+        login(formData.username)
         navigate('/home')
     }
 
@@ -38,7 +40,11 @@ export default function AuthForm() {
         if (!isLogin && formData.password === formData.confirmPassword) {
             try {
                 await setUser(formData.username, formData.password)
+
+                // This is illegal
+                login(formData.username)
                 navigate('/home')
+
             }
             catch (err) {
                 console.log(err)
@@ -50,15 +56,18 @@ export default function AuthForm() {
                 const user = await getUser(formData.username)
 
                 if (user.get('password') === formData.password) {
+                    login(formData.username)
                     navigate('/home')
                 } else alert('Login Daten scheinen falsch zu sein!')
             } catch (err) {
-                alert('Login Daten scheinen falsch zu sein: ' + err.toString())
+                alert('Login Daten scheinen falsch zu sein User Existiert nichtw ')
             }
         }
         console.log(isLogin ? 'Login' : 'Registration', 'attempted with:', formData);
 
     };
+
+
 
     async function getUser (id: String): Promise<RxDocument> {
         const userCollection = (await rxLobenDatabase).user;

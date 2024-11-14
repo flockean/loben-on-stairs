@@ -8,6 +8,7 @@ import {MOCK_FEED} from "../logic/registerMocks";
 import HeaderBar from "./HeaderBar";
 import type {Post} from "../logic/registerMocks";
 import {useNavigate} from "react-router-dom";
+import {getCurrentUser} from "../logic/userService";
 
 // Mock user data
 const MOCK_USERS = [
@@ -60,8 +61,9 @@ export default function UploadView() {
 
     const handleSubmit = async () => {
         let uploadPost: Post = {
-            id: 28,
+            id: 0,
             username: selectedUser.name,
+            byUser: getCurrentUser(),
             avatar: Avatar1,
             image: URL.createObjectURL(mediaFile),
             caption: caption,
@@ -70,12 +72,7 @@ export default function UploadView() {
         addNewPostToFeed(uploadPost)
         navigator("/home")
         // Here you would implement the actual upload logic
-        console.log({
-            user: selectedUser.name,
-            caption,
-            options,
-            mediaFile
-        })
+        console.log(uploadPost)
         navigator("/home")
     }
 

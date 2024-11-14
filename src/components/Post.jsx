@@ -43,7 +43,7 @@ const SocialPost = ({ post }) => {
                     className="w-10 h-10 rounded-full"
                 />
                 <div className="flex-1">
-                    <p className="text-m font-bold">{post.username} wurde von Anonymous gelobt</p>
+                    <p className="text-m font-bold">{post.username} wurde von {post.byUser} gelobt</p>
                 </div>
                 <button onClick={handleReport} className="text-gray-500 hover:text-gray-700">
                     <Flag className="h-4 w-4"/>
