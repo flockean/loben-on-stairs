@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Flag, Send} from 'lucide-react';
+import {getCurrentUser} from "../logic/userService";
 
 
 const SocialPost = ({ post }) => {
@@ -22,7 +23,7 @@ const SocialPost = ({ post }) => {
 
         const newCommentObj = {
             id: comments.reduce((maxId, post) => Math.max(maxId, post.id), 0) + 1,
-            username: 'Anonymous',
+            username: getCurrentUser(),
             text: newComment.trim()
         };
 
