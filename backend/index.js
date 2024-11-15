@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/', {
+mongoose.connect('mongodb://mongo:27017/', {
     dbName: 'lobenOnStairs',
 }).then(() => console.log('Database connected'))
 
@@ -39,16 +39,16 @@ const UserSchema = new mongoose.Schema({
     },
 })
 
-
-// Create Indexes
 const FeedPost = mongoose.model('PostSchema', FeedPostSchema);
 try {
-    FeedPost.createIndexes().then(r => console.log("FeedPosts has been Indexed"));
+    const FeedPost = mongoose.model('PostSchema', FeedPostSchema);
+    FeedPost.createIndexes().then(() => console.log("FeedPosts has been Indexed"));
 } catch (err){console.log(err)}
 
 const User = mongoose.model('UserSchema', UserSchema);
 try {
-    User.createIndexes().then(r => console.log("User has been Indexed"));
+    const User = mongoose.model('UserSchema', UserSchema);
+    User.createIndexes().then(() => console.log("User has been Indexed"));
 
 } catch (err){console.log(err)}
 
