@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://mongo:27017/', {
+
+// Need to do this because .env is kinda reta... with .env
+mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost:27017/', {
     dbName: 'lobenOnStairs',
 }).then(() => console.log('Database connected'))
 
