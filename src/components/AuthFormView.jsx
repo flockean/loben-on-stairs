@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import {rxLobenDatabase} from "../App";
-import {RxDocument} from "rxdb";
+import {userService} from "../App";
 
 import HeaderBar from "./HeaderBar";
-import {login} from "../logic/userService";
 
 export default function AuthForm() {
     const [isLogin, setIsLogin] = useState(true);
@@ -25,68 +23,46 @@ export default function AuthForm() {
     };
 
     const loginAsGuest = async () => {
-        login(formData.username)
-        navigate('/home')
+        if (await userService.login("Anon", "Anon")) {
+            navigate('/home')
+        }
     }
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // For Registration password not same
         if (!isLogin && formData.password !== formData.confirmPassword) {
             alert('Passwords do not match');
             return;
         }
+
+        // For Registration Succeed
         if (!isLogin && formData.password === formData.confirmPassword) {
             try {
-                await setUser(formData.username, formData.password)
-
-                // This is illegal
-                login(formData.username)
-                navigate('/home')
-
+                if (await userService.register(formData.username, formData.password)) {
+                    console.log(userService.getCurrentUser())
+                    navigate('/home')
+                } else alert('LoginDaten sind falsch')
             }
-            catch (err) {
-                console.log(err)
+            catch (err) {console.log(err)
                 alert('Error during Registration')
             }
         }
         if (isLogin) {
             try {
-                const user = await getUser(formData.username)
-
-                if (user.get('password') === formData.password) {
-                    login(formData.username)
+                if (await userService.login(formData.username, formData.password)) {
+                    console.log(userService.getCurrentUser())
                     navigate('/home')
-                } else alert('Login Daten scheinen falsch zu sein!')
+                } else alert('LoginDaten sind falsch')
             } catch (err) {
-                alert('Login Daten scheinen falsch zu sein User Existiert nichtw ')
+                alert('Es scheint ein Problem aufgetreten zu sein')
             }
         }
         console.log(isLogin ? 'Login' : 'Registration', 'attempted with:', formData);
 
     };
-
-
-
-    async function getUser (id: String): Promise<RxDocument> {
-        const userCollection = (await rxLobenDatabase).user;
-        const query = userCollection.findOne(id);
-        const userValue = await query.exec()
-        if (userValue === null) {
-            // eslint-disable-next-line no-throw-literal
-            throw "Incorrect UserData"
-        }
-        return userValue
-    }
-
-    async function setUser (name: String, password: String): Promise<RxDocument> {
-        const userCollection = (await rxLobenDatabase).user;
-        userCollection.insert({
-            name: name,
-            password: password
-        });
-    }
 
     const toggleForm = () => {
         setIsLogin(!isLogin);

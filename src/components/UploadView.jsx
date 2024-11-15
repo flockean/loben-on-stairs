@@ -4,11 +4,11 @@ import {useState} from 'react'
 import {Upload as UploadIcon, User} from "lucide-react"
 import Navbar from "./Navbar";
 import Avatar1 from '../assets/images/avatar-1.jpg';
+import type {Post} from "../logic/registerMocks";
 import {MOCK_FEED} from "../logic/registerMocks";
 import HeaderBar from "./HeaderBar";
-import type {Post} from "../logic/registerMocks";
 import {useNavigate} from "react-router-dom";
-import {getCurrentUser} from "../logic/userService";
+import {UserService} from "../logic/userService";
 
 // Mock user data
 const MOCK_USERS = [
@@ -36,6 +36,7 @@ export default function UploadView() {
         handrail: false,
     })
     const navigator = useNavigate()
+    const userService = new UserService();
 
     const filteredUsers = MOCK_USERS.filter(user =>
         user.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -71,7 +72,7 @@ export default function UploadView() {
                 })
             }).then(
                 data => {
-                    console.log("Positive")
+                    console.log("Post Created")
                 }
             )
         } catch (err) {
@@ -84,7 +85,7 @@ export default function UploadView() {
         let uploadPost: Post = {
             id: 0,
             username: selectedUser.name,
-            byUser: getCurrentUser(),
+            byUser: userService.getCurrentUser().name,
             avatar: Avatar1,
             image: URL.createObjectURL(mediaFile),
             caption: caption,

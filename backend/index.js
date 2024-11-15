@@ -30,7 +30,6 @@ const FeedPostSchema = new mongoose.Schema({
 const UserSchema = new mongoose.Schema({
     name: {type: String, required: true, unique: true},
     password: {type: String, required: true},
-    avatar: { type: Buffer },
     profile: {
         type: Object,
         properties: {
@@ -50,6 +49,7 @@ try {
 const User = mongoose.model('UserSchema', UserSchema);
 try {
     User.createIndexes().then(r => console.log("User has been Indexed"));
+
 } catch (err){console.log(err)}
 
 // Setup Backend-API
@@ -59,6 +59,19 @@ const cors = require("cors");
 
 app.use(express.json());
 app.use(cors());
+try {
+    User.findOne({name: 'Anon'}).exec().then(
+        data => {
+            if (data === null) {
+                let user = new User({name: "Anon", password: "Anon", profile: {gelobt: 0, lobe: 0}});
+                user.save()
+                console.log("Anon has been added")
+            }
+        }
+    )
+} catch (err) {
+
+}
 
 // API-Logic
 app.get("/", (req, resp) => {
@@ -74,7 +87,7 @@ app.post("/createUser", async (req, resp) => {
           delete result.password
           resp.send(req.body);
           console.log(result);
-      } else {console.log("Post already registerd");}
+      } else {console.log("User already registerd");}
 
   } catch (err) {
       console.log("Error")
@@ -82,12 +95,12 @@ app.post("/createUser", async (req, resp) => {
 })
 
 // Get User for Login
-app.get("/login", async (req, resp) => {
+app.post("/login", async (req, resp) => {
     try {
-        const users = await User.find({name: req.body.name})
-        if (users) {
-            resp.send(users)
-        } else { resp.send('No User existing')}
+        const user = await User.findOne({name: req.body.name})
+        if (req.body.password === user.password) {
+            resp.send(user)
+        } else { resp.status(401).send('Unauthorized')}
     } catch (err) {
         console.log(err)
         resp.status(500).send('Something went wrong')
