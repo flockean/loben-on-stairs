@@ -24,7 +24,7 @@ export class UserService{
     async login(name: String, password: String) {
         const headers = new Headers({"Content-Type": "application/json"});
         try {
-            const response = await fetch( (process.env.BACKEND_URL || "http://localhost:5000") + "/login", {
+            const response = await fetch( (process.env.BACKEND_URL || "http://backend:5000") + "/login", {
                 headers: headers,
                 method: "POST",
                 body: JSON.stringify({
@@ -48,7 +48,7 @@ export class UserService{
     async register(name: String, password: String) {
         const headers = new Headers({"Content-Type": "application/json"});
         try {
-            const response = await fetch( (process.env.BACKEND_URL || "http://localhost:5000") + "/createUser", {
+            const response = await fetch( (process.env.BACKEND_URL || "http://backend:5000") + "/createUser", {
                 headers: headers,
                 method: "POST",
                 body: JSON.stringify({
