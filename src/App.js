@@ -5,14 +5,9 @@ import UploadView from "./components/UploadView";
 import FeedView from "./components/FeedView";
 import React from "react";
 import Profile from "./components/ProfileView";
+import {UserService} from "./logic/userService";
 
-import {addRxPlugin} from 'rxdb';
-import {RxDBDevModePlugin} from 'rxdb/plugins/dev-mode';
-import {createLobenDB} from "./logic/databaseTools";
-
-addRxPlugin(RxDBDevModePlugin);
-
-export const rxLobenDatabase = await createLobenDB()
+export const userService = new UserService();
 const router = createBrowserRouter([
     {
         path: "/",
