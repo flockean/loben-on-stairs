@@ -56,6 +56,27 @@ export default function UploadView() {
     function addNewPostToFeed(newPost: Post) {
         const highestId = MOCK_FEED.reduce((maxId, post) => Math.max(maxId, post.id), 0);
         newPost.id = highestId + 1;
+        let myHeaders = new Headers({
+            "Content-Type": "application/json",
+        });
+        try {
+            fetch("http://localhost:5000/createPost", {
+                method: 'POST',
+                headers: myHeaders,
+                body: JSON.stringify({
+                    id: newPost.id,
+                    username: newPost.username,
+                    byUser: newPost.byUser,
+                    comments: []
+                })
+            }).then(
+                data => {
+                    console.log("Positive")
+                }
+            )
+        } catch (err) {
+            console.log(err)
+            }
         MOCK_FEED.push(newPost);
     }
 
@@ -69,6 +90,7 @@ export default function UploadView() {
             caption: caption,
             comments: []
         }
+
         addNewPostToFeed(uploadPost)
         navigator("/home")
         // Here you would implement the actual upload logic

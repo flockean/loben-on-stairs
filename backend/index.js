@@ -4,11 +4,10 @@ mongoose.connect('mongodb://localhost:27017/', {
 }).then(() => console.log('Database connected'))
 
 const FeedPostSchema = new mongoose.Schema({
-    id: {type: String, required: true},
+    id: {type: Number, required: true},
     username: {type: String, required: true},
-    fromUsername: {type: String, required: true},
-    timestamp: {type: Date, default: Date.now() },
-    postImage: {type: Buffer, required: true},
+    byUser: {type: String, required: true},
+    timestamp: {type: Date, default: Date.now()},
     comments: {
         type: Array,
         items: {
@@ -123,6 +122,7 @@ app.get("/posts", async (req, resp) => {
 // Upload a new Post
 app.post("/createPost", async (req, resp) => {
     try {
+        console.log(req.body)
         const post = new FeedPost(req.body)
         let result = await post.save()
         result = result.toObject();
