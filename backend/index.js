@@ -122,6 +122,19 @@ app.get("/users", async (req, resp) => {
     }
 })
 
+// Update User
+app.put("/updateUser", async (req, resp) => {
+    try {
+        await User.findOneAndUpdate({name: req.body.name},
+            req.body);
+        const user = await User.findOne({name: req.body.name})
+        resp.status(200).send(user)
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+
 // Get Posts for the Feed
 app.get("/posts", async (req, resp) => {
     try {

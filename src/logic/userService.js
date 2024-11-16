@@ -9,8 +9,7 @@ export class UserService{
         return JSON.parse(localStorage.getItem("currentUser"))
     }
 
-    setCurrentUser() {
-        let currentUser = UserService.currentUser
+    setCurrentUser(currentUser) {
         localStorage.setItem("currentUser", JSON.stringify(currentUser))
     }
 
@@ -38,7 +37,8 @@ export class UserService{
                 UserService.currentUser.name = data.name
                 UserService.currentUser.password = data.password
                 UserService.currentUser.profile = data.profile
-                this.setCurrentUser()
+                let currentUser = UserService.currentUser
+                this.setCurrentUser(currentUser)
                 return true;
             } else {
                 return false
@@ -66,7 +66,8 @@ export class UserService{
                 UserService.currentUser.name = data.name
                 UserService.currentUser.password = data.password
                 UserService.currentUser.profile = data.profile
-                this.setCurrentUser()
+                let currentUser = UserService.currentUser
+                this.setCurrentUser(currentUser)
                 return true;
             } else {
                 return false

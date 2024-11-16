@@ -38,6 +38,7 @@ export default function UploadView() {
     const navigator = useNavigate()
     const userService = new UserService();
 
+
     const filteredUsers = MOCK_USERS.filter(user =>
         user.name.toLowerCase().includes(searchQuery.toLowerCase())
     )
@@ -71,8 +72,23 @@ export default function UploadView() {
                     comments: []
                 })
             }).then(
-                data => {
+                () => {
                     console.log("Post Created")
+                }
+            )
+            fetch("http://localhost:5000/updateUser", {
+                method: "PUT",
+                headers: myHeaders,
+                body: JSON.stringify({
+                    name: userService.getCurrentUser().name,
+                    profile: userService.getCurrentUser().profile.lobe + 1
+                })
+            }).then(
+                () => {
+                    let currentUser = userService.getCurrentUser()
+                    currentUser.profile.lobe++
+                    userService.setCurrentUser(currentUser)
+                    console.log("Stats Updated")
                 }
             )
         } catch (err) {
@@ -82,13 +98,28 @@ export default function UploadView() {
     }
 
     const handleSubmit = async () => {
+        var capOpts = ""
+        if (options.slow){
+            capOpts = capOpts + " #LangsamGelaufen"
+        }
+        if (options.phoneAway){
+            capOpts = capOpts + " #HandyWeggesteckt"
+        }
+        if (options.handrail){
+            capOpts = capOpts + " #HandlaufBenutzt"
+        }
+        if (options.attentive){
+            capOpts = capOpts + " #Aufmerksam"
+        }
+        var newCaption = caption + capOpts
+
         let uploadPost: Post = {
             id: 0,
             username: selectedUser.name,
             byUser: userService.getCurrentUser().name,
             avatar: Avatar1,
             image: URL.createObjectURL(mediaFile),
-            caption: caption,
+            caption: newCaption,
             comments: []
         }
 

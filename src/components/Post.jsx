@@ -18,6 +18,23 @@ const SocialPost = ({ post }) => {
         alert(`Der Post mit der ID: ${post.id} mit seinen Kommentaren wurde gemeldet und wird vom Support überprüft.`)
     }
 
+    function handleCaption(caption) {
+        const hashtagRegex = /#(\w+)/g;
+
+        // Teile den Text in Wörter und prüfe jedes Wort auf einen Hashtag
+        const words = caption.split(' ');
+        return words.map(word => {
+            if (word.match(hashtagRegex)) {
+                // Wenn es ein Hashtag ist, gib ein JSX-Element zurück
+                return <span key={word} className="text-blue-500 underline">{word} </span>;
+            } else {
+                // Ansonsten gib das Wort als Text zurück
+                return word + " ";
+            }
+        });
+    }
+
+
     const handleSubmitComment = (e) => {
         e.preventDefault();
         if (!newComment.trim()) return;
@@ -57,7 +74,7 @@ const SocialPost = ({ post }) => {
                     alt="Post image"
                     className="w-full object-cover"
                 />
-                <p className="p-2 text-sm">{post.caption}</p>
+                <p className="p-2 text-sm">{handleCaption(post.caption)}</p>
             </div>
             <div className="flex flex-col gap-4 p-2 border-t">
                 <div className="w-full space-y-2">
