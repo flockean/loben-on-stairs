@@ -9,6 +9,7 @@ import {MOCK_FEED} from "../logic/registerMocks";
 import HeaderBar from "./HeaderBar";
 import {useNavigate} from "react-router-dom";
 import {UserService} from "../logic/userService";
+import {backendurl} from "../App";
 
 // Mock user data
 const MOCK_USERS = [
@@ -62,7 +63,7 @@ export default function UploadView() {
             "Content-Type": "application/json",
         });
         try {
-            fetch("http://localhost:5000/createPost", {
+            fetch(backendurl.BACKEND_URL + "/createPost", {
                 method: 'POST',
                 headers: myHeaders,
                 body: JSON.stringify({
@@ -76,7 +77,7 @@ export default function UploadView() {
                     console.log("Post Created")
                 }
             )
-            fetch("http://localhost:5000/updateUser", {
+            fetch(backendurl.BACKEND_URL + "/updateUser", {
                 method: "PUT",
                 headers: myHeaders,
                 body: JSON.stringify({

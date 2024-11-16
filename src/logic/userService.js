@@ -1,4 +1,5 @@
 import type {CurrentUser} from "./collections";
+import {backendurl} from "../App";
 
 
 export class UserService{
@@ -24,7 +25,7 @@ export class UserService{
     async login(name: String, password: String) {
         const headers = new Headers({"Content-Type": "application/json"});
         try {
-            const response = await fetch( (process.env.BACKEND_URL || "http://localhost:5000") + "/login", {
+            const response = await fetch( (process.env.BACKEND_URL || backendurl.BACKEND_URL) + "/login", {
                 headers: headers,
                 method: "POST",
                 body: JSON.stringify({
@@ -49,7 +50,7 @@ export class UserService{
     async register(name: String, password: String) {
         const headers = new Headers({"Content-Type": "application/json"});
         try {
-            const response = await fetch( (process.env.BACKEND_URL || "http://localhost:5000") + "/createUser", {
+            const response = await fetch( (process.env.BACKEND_URL || backendurl.BACKEND_URL) + "/createUser", {
                 headers: headers,
                 method: "POST",
                 body: JSON.stringify({

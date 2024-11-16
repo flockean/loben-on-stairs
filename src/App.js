@@ -19,6 +19,10 @@ const ProtectedRoute = ({ children }) => {
     return children;
 };
 
+export const backendurl = {
+    BACKEND_URL: "http://localhost:5000",
+}
+
 export const router = createBrowserRouter([
     {
         path: "/login",
