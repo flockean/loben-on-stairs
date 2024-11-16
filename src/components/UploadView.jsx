@@ -225,7 +225,7 @@ export default function UploadView() {
 
                 {step === 3 && (
                     <div className="space-y-4">
-                        <div className="border-2 border-dashed rounded-lg p-8 text-center">
+                        <div className="border-2 border-dashed rounded-lg p-8 mt-40 text-center">
                             <input
                                 type="file"
                                 id="file-upload"
@@ -237,13 +237,6 @@ export default function UploadView() {
                                 <UploadIcon className="w-12 h-12 mx-auto mb-4 text-gray-400" />
                                 <div className="text-gray-500">Click to upload</div>
                             </label>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-2">
-                            <div className="aspect-video bg-gray-100 rounded-lg"></div>
-                            <div className="aspect-video bg-gray-100 rounded-lg"></div>
-                            <div className="aspect-video bg-gray-100 rounded-lg"></div>
-                            <div className="aspect-video bg-gray-100 rounded-lg"></div>
                         </div>
                     </div>
                 )}
