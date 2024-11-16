@@ -264,6 +264,7 @@ export default function UploadView() {
                     Zurück
                 </button>
                 <button
+                    disabled={step === 2 || step === 3}
                     onClick={() => {
                         if (step < 4) setStep(step + 1)
                         else handleSubmit()
