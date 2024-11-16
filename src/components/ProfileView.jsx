@@ -45,7 +45,7 @@ export default function Profile() {
             <h2 className="font-semibold">{userService.getCurrentUser().name}</h2>
             <div className="flex gap-4 text-sm text-muted-foreground">
               <span>{userService.getCurrentUser().profile.lobe} Gelobt</span>
-              <span>{userService.getCurrentUser().profile.gelobt} Lobe</span>
+              <span>{userService.getCurrentUser().profile.gelobt} Lob(e) verteilt</span>
             </div>
           </div>
         </div>
