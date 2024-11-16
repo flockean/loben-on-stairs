@@ -4,7 +4,7 @@ const backendurl = {
     BACKEND_URL: "mongodb://localhost:27017/",
 }
 // Need to do this because .env is kinda reta... with .env
-mongoose.connect(process.env.MONGODB_URL || backendurl.BACKEND_URL, {
+mongoose.connect(backendurl.BACKEND_URL, {
     dbName: 'lobenOnStairs',
 }).then(() => console.log('Database connected'))
 

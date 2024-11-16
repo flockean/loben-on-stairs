@@ -14,8 +14,6 @@ services:
     restart: always
     ports:
       - 5000:5000
-    environment:
-      - MONGODB_URL=mongodb://mongo:27017/
     depends_on:
       mongo:
         condition: service_started
@@ -24,8 +22,6 @@ services:
     build: .
     ports:
       - 80:80
-    environment:
-      - BACKEND_URL=http://backend:5000
     depends_on:
       mongo:
         condition: service_started
