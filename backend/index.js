@@ -35,13 +35,7 @@ const FeedPostSchema = new mongoose.Schema({
 const UserSchema = new mongoose.Schema({
     name: {type: String, required: true, unique: true},
     password: {type: String, required: true},
-    profile: {
-        type: Object,
-        properties: {
-            lobe: Number,
-            gelobt: Number
-        }
-    },
+    profile: {lobe: Number, gelobt: Number}
 })
 
 const FeedPost = mongoose.model('PostSchema', FeedPostSchema);
