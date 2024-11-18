@@ -37,12 +37,14 @@ MongoCompass need to be installed an started (Have a Connection on default local
 Step 3.
 Start Frontend:
 ```
+npm install
 npm start
 ```
 
 Step 4. (on another Terminal)
 Start Backend:
 ```
+npm install
 cd backend
 npm start
 ```
