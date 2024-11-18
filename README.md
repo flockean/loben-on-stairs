@@ -1,40 +1,78 @@
-# Getting Started with Create React App
+# Getting Started with LobenOnStairsApp
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was developed by Lucas Buchholz (Lead), Ronny V., Lukas K.
 
-## Production
-Prerequisite: MongoDB / MongoCompass installed or Docker-compose / Docker-Desktop
+## Still in Development
 
-```
-docker compose up
-```
+Warning, this Application is yet not completly developed, Posts and Upload are not Synced and not permanent saved yet.
+
+
+## Prerequisite
+
+For Development / localmachine mongoDB needed. -> MongoCompass (optional: Docker-image `mongo:latest`)
+
+For Production Readyness Docker / Docker-compose is needed. -> Docker-Desktop
 
 ## Development
 
-Prerequisite: MongoDB / MongoCompass installed or Docker
 
-In the project directory, you can run:
+Step 1.
+`git clone https://github.com/flockean/loben-on-stairs`
+`cd loben-on-stairs`
+`git checkout develop`
 
+
+MongoDB / MongoCompass installed OR Docker / Docker-Desktop
+
+Step 2.
+### Docker / Docker-Desktop
+
+`docker pull mongo:latest`
+`docker run mongo:latest`
+
+### (XOR) MongoCompass
+
+MongoCompass need to be installed an started (Have a Connection on default localhost:27017)
+
+Step 3.
+Start Frontend:
+```
+npm start
+```
+
+Step 4. (on another Terminal)
 Start Backend:
 ```
-cd backend  
-npm start 
+cd backend
+npm start
 ```
 
-Start Frontend:  
-```
-cd backend  
-npm start 
-```
 
-### Initialize Backend Database via Docker
-Init Database via Docker
+## Production / localmachine
+For this some File Changes might needed:
+### on localhost
 
-Create Network for Application  
-`docker network create -d bridge loben-net`
+Step 1.
+`git clone https://github.com/flockean/loben-on-stairs`
+`cd loben-on-stairs`
+`git checkout develop`
 
-MongoDB Initialize  
-`docker run --network loben-net -p 27017:27017 --name mongo -d mongo:latest`
+`loben-on-stairs/src/App.js` Should be BACKEND-URL `http://localhost:5000`
+`loben-on-stairs/backend/index.js` Should be BACKEND-URL`mongodb://localhost:27017/`
 
-UI for MongoDB Backend (optional)  
-`docker run --network loben-net -p 8081:8081 mongo-express`
+Now it should be possible to StartUp with `docker-compose up`
+
+### on dedicated Server
+
+
+Step 1.
+`git clone https://github.com/flockean/loben-on-stairs`
+`cd loben-on-stairs`
+`git checkout develop`
+
+
+Step 2.
+`loben-on-stairs/src/App.js` Should be BACKEND-URL `http://<YOUR-SERVER-IP>:5000`
+`loben-on-stairs/backend/index.js` Should be BACKEND-URL`mongodb://mongo:27017/`
+
+Now it should be possible to StartUp with `docker-compose up`
