@@ -1,0 +1,33 @@
+services:
+  mongo:
+    image: mongo
+    restart: always
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+
+  backend:
+    build: backend/.
+    restart: always
+    ports:
+      - 5000:5000
+    depends_on:
+      mongo:
+        condition: service_started
+
+  frontend:
+    build: .
+    ports:
+      - 80:80
+    depends_on:
+      mongo:
+        condition: service_started
+      backend:
+        condition: service_started
+
+networks:
+  default:
+    driver: bridge

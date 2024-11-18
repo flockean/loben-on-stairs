@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {Flag, Send} from 'lucide-react';
-import {getCurrentUser} from "../logic/userService";
+import {Flag, Send, User} from 'lucide-react';
+import {UserService} from "../logic/userService";
+
 
 
 const SocialPost = ({ post }) => {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
+    const userService = new UserService();
 
     useEffect(() => {
         if (post && post.comments) {
@@ -17,13 +19,30 @@ const SocialPost = ({ post }) => {
         alert(`Der Post mit der ID: ${post.id} mit seinen Kommentaren wurde gemeldet und wird vom Support überprüft.`)
     }
 
+    function handleCaption(caption) {
+        const hashtagRegex = /#(\w+)/g;
+
+        // Teile den Text in Wörter und prüfe jedes Wort auf einen Hashtag
+        const words = caption.split(' ');
+        return words.map(word => {
+            if (word.match(hashtagRegex)) {
+                // Wenn es ein Hashtag ist, gib ein JSX-Element zurück
+                return <span key={word} className="text-blue-500 underline">{word} </span>;
+            } else {
+                // Ansonsten gib das Wort als Text zurück
+                return word + " ";
+            }
+        });
+    }
+
+
     const handleSubmitComment = (e) => {
         e.preventDefault();
         if (!newComment.trim()) return;
 
         const newCommentObj = {
             id: comments.reduce((maxId, post) => Math.max(maxId, post.id), 0) + 1,
-            username: getCurrentUser(),
+            username: userService.getCurrentUser().name,
             text: newComment.trim()
         };
 
@@ -38,8 +57,7 @@ const SocialPost = ({ post }) => {
     return (
         <div className="w-full max-w-2xl mx-auto bg-white rounded-lg shadow-md overflow-hidden my-4">
             <div className="flex items-center space-x-4 p-4 border-b">
-                <img
-                    src={post.avatar.toString()}
+                <User
                     alt={post.username}
                     className="w-10 h-10 rounded-full"
                 />
@@ -56,7 +74,7 @@ const SocialPost = ({ post }) => {
                     alt="Post image"
                     className="w-full object-cover"
                 />
-                <p className="p-2 text-sm">{post.caption}</p>
+                <p className="p-2 text-sm">{handleCaption(post.caption)}</p>
             </div>
             <div className="flex flex-col gap-4 p-2 border-t">
                 <div className="w-full space-y-2">

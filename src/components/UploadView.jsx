@@ -3,24 +3,25 @@
 import {useState} from 'react'
 import {Upload as UploadIcon, User} from "lucide-react"
 import Navbar from "./Navbar";
-import Avatar1 from '../assets/images/avatar-1.jpg';
+import type {Post} from "../logic/registerMocks";
 import {MOCK_FEED} from "../logic/registerMocks";
 import HeaderBar from "./HeaderBar";
-import type {Post} from "../logic/registerMocks";
 import {useNavigate} from "react-router-dom";
-import {getCurrentUser} from "../logic/userService";
+import {UserService} from "../logic/userService";
+import {backendurl} from "../App";
+import Avatar1 from "../assets/images/avatar-1.jpg"
 
 // Mock user data
 const MOCK_USERS = [
-    { id: '1', name: 'Lucas', avatar: Avatar1 },
-    { id: '2', name: 'Leo', avatar: Avatar1 },
-    { id: '3', name: 'Andi', avatar: Avatar1 },
+    { id: '1', name: 'Lucas07', avatar: Avatar1 },
+    { id: '2', name: 'LeoX', avatar: Avatar1 },
+    { id: '3', name: 'Sophie', avatar: Avatar1 },
     { id: '4', name: 'Max', avatar: Avatar1 },
     { id: '5', name: 'Ronny', avatar: Avatar1 },
     { id: '6', name: 'Simon', avatar: Avatar1 },
-    { id: '7', name: 'DerWildePeter', avatar: Avatar1 },
-    { id: '8', name: 'Olaf', avatar: Avatar1 },
-    { id: '9', name: 'HeiligerSprinterX', avatar: Avatar1 },
+    { id: '7', name: 'Hans', avatar: Avatar1 },
+    { id: '8', name: 'Carla', avatar: Avatar1 },
+    { id: '9', name: 'Sabine', avatar: Avatar1 },
 ]
 
 export default function UploadView() {
@@ -36,6 +37,8 @@ export default function UploadView() {
         handrail: false,
     })
     const navigator = useNavigate()
+    const userService = new UserService();
+
 
     const filteredUsers = MOCK_USERS.filter(user =>
         user.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -56,19 +59,71 @@ export default function UploadView() {
     function addNewPostToFeed(newPost: Post) {
         const highestId = MOCK_FEED.reduce((maxId, post) => Math.max(maxId, post.id), 0);
         newPost.id = highestId + 1;
+        let myHeaders = new Headers({
+            "Content-Type": "application/json",
+        });
+        try {
+            fetch(backendurl.BACKEND_URL + "/createPost", {
+                method: 'POST',
+                headers: myHeaders,
+                body: JSON.stringify({
+                    id: newPost.id,
+                    username: newPost.username,
+                    byUser: newPost.byUser,
+                    comments: []
+                })
+            }).then(
+                () => {
+                    console.log("Post Created")
+                }
+            )
+            fetch(backendurl.BACKEND_URL + "/updateUser", {
+                method: "PUT",
+                headers: myHeaders,
+                body: JSON.stringify({
+                    name: userService.getCurrentUser().name,
+                    profile: userService.getCurrentUser().profile.lobe + 1
+                })
+            }).then(
+                () => {
+                    let currentUser = userService.getCurrentUser()
+                    currentUser.profile.lobe++
+                    userService.setCurrentUser(currentUser)
+                    console.log("Stats Updated")
+                }
+            )
+        } catch (err) {
+            console.log(err)
+            }
         MOCK_FEED.push(newPost);
     }
 
     const handleSubmit = async () => {
+        var capOpts = ""
+        if (options.slow){
+            capOpts = capOpts + " #LangsamGelaufen"
+        }
+        if (options.phoneAway){
+            capOpts = capOpts + " #HandyWeggesteckt"
+        }
+        if (options.handrail){
+            capOpts = capOpts + " #HandlaufBenutzt"
+        }
+        if (options.attentive){
+            capOpts = capOpts + " #Aufmerksam"
+        }
+        var newCaption = caption + capOpts
+
         let uploadPost: Post = {
             id: 0,
             username: selectedUser.name,
-            byUser: getCurrentUser(),
-            avatar: Avatar1,
+            byUser: userService.getCurrentUser().name,
+            avatar: User,
             image: URL.createObjectURL(mediaFile),
-            caption: caption,
+            caption: newCaption,
             comments: []
         }
+
         addNewPostToFeed(uploadPost)
         navigator("/home")
         // Here you would implement the actual upload logic
@@ -160,7 +215,7 @@ export default function UploadView() {
                                     }}
                                 >
                                     <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
-                                        <img src={user.avatar} alt="" className="w-12 h-12 rounded-full" />
+                                        <User alt="" className="w-12 h-12 rounded-full" />
                                     </div>
                                     <span className="text-sm text-center">{user.name}</span>
                                 </button>
@@ -171,7 +226,7 @@ export default function UploadView() {
 
                 {step === 3 && (
                     <div className="space-y-4">
-                        <div className="border-2 border-dashed rounded-lg p-8 text-center">
+                        <div className="border-2 border-dashed rounded-lg p-8 mt-40 text-center">
                             <input
                                 type="file"
                                 id="file-upload"
@@ -183,13 +238,6 @@ export default function UploadView() {
                                 <UploadIcon className="w-12 h-12 mx-auto mb-4 text-gray-400" />
                                 <div className="text-gray-500">Click to upload</div>
                             </label>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-2">
-                            <div className="aspect-video bg-gray-100 rounded-lg"></div>
-                            <div className="aspect-video bg-gray-100 rounded-lg"></div>
-                            <div className="aspect-video bg-gray-100 rounded-lg"></div>
-                            <div className="aspect-video bg-gray-100 rounded-lg"></div>
                         </div>
                     </div>
                 )}
@@ -217,6 +265,7 @@ export default function UploadView() {
                     Zurück
                 </button>
                 <button
+                    disabled={step === 2 || step === 3}
                     onClick={() => {
                         if (step < 4) setStep(step + 1)
                         else handleSubmit()

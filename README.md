@@ -1,70 +1,80 @@
-# Getting Started with Create React App
+# Getting Started with LobenOnStairsApp
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was developed by Lucas Buchholz (Lead), Ronny V., Lukas K.
 
-## Available Scripts
+## Still in Development
 
-In the project directory, you can run:
+Warning, this Application is yet not completly developed, Posts and Upload are not Synced and not permanent saved yet.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Prerequisite
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+For Development / localmachine mongoDB needed. -> MongoCompass (optional: Docker-image `mongo:latest`)
 
-### `npm test`
+For Production Readyness Docker / Docker-compose is needed. -> Docker-Desktop
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Development
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Step 1.
+`git clone https://github.com/flockean/loben-on-stairs`
+`cd loben-on-stairs`
+`git checkout develop`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+MongoDB / MongoCompass installed OR Docker / Docker-Desktop
 
-### `npm run eject`
+Step 2.
+### Docker / Docker-Desktop
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+`docker pull mongo:latest`
+`docker run mongo:latest`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### (XOR) MongoCompass
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+MongoCompass need to be installed an started (Have a Connection on default localhost:27017)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Step 3.
+Start Frontend:
+```
+npm install
+npm start
+```
 
-## Learn More
+Step 4. (on another Terminal)
+Start Backend:
+```
+npm install
+cd backend
+npm start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Production / localmachine
+For this some File Changes might needed:
+### on localhost
 
-### Code Splitting
+Step 1.
+`git clone https://github.com/flockean/loben-on-stairs`
+`cd loben-on-stairs`
+`git checkout develop`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+`loben-on-stairs/src/App.js` Should be BACKEND-URL `http://localhost:5000`
+`loben-on-stairs/backend/index.js` Should be BACKEND-URL`mongodb://localhost:27017/`
 
-### Analyzing the Bundle Size
+Now it should be possible to StartUp with `docker-compose up`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### on dedicated Server
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Step 1.
+`git clone https://github.com/flockean/loben-on-stairs`
+`cd loben-on-stairs`
+`git checkout develop`
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Step 2.
+`loben-on-stairs/src/App.js` Should be BACKEND-URL `http://<YOUR-SERVER-IP>:5000`
+`loben-on-stairs/backend/index.js` Should be BACKEND-URL`mongodb://mongo:27017/`
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Now it should be possible to StartUp with `docker-compose up`

@@ -1,40 +1,62 @@
 import './styles/App.css';
 import AuthForm from "./components/AuthFormView";
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import UploadView from "./components/UploadView";
 import FeedView from "./components/FeedView";
 import React from "react";
 import Profile from "./components/ProfileView";
+import {UserService} from "./logic/userService";
 
-import {addRxPlugin} from 'rxdb';
-import {RxDBDevModePlugin} from 'rxdb/plugins/dev-mode';
-import {createLobenDB} from "./logic/databaseTools";
+export const userService = new UserService();
+// Geschützte Route, die nur für authentifizierte Benutzer zugänglich ist
+const ProtectedRoute = ({ children }) => {
+    const isLoggedIn = userService.isLoggedIn();
 
-addRxPlugin(RxDBDevModePlugin);
+    if (!isLoggedIn) {
+        return <Navigate to="/auth" replace />;
+    }
 
-export const rxLobenDatabase = await createLobenDB()
-const router = createBrowserRouter([
+    return children;
+};
+
+export const backendurl = {
+    BACKEND_URL: "http://localhost:5000",
+}
+
+export const router = createBrowserRouter([
     {
-        path: "/",
-        element: <AuthForm/>,
+        path: "/login",
+        element: <AuthForm />,
     },
     {
         path: "/upload",
-        element: <UploadView/>,
+        element: (
+            <ProtectedRoute>
+                <UploadView />
+            </ProtectedRoute>
+        ),
     },
     {
-      path: "/home",
-      element: <FeedView/>
+        path: "/home",
+        element: (
+            <ProtectedRoute>
+                <FeedView />
+            </ProtectedRoute>
+        ),
     },
     {
-      path: "/profile",
-      element: <Profile/>
+        path: "/profile",
+        element: (
+            <ProtectedRoute>
+                <Profile />
+            </ProtectedRoute>
+        ),
     },
     {
         path: "/*",
-        element: <AuthForm/>
-    }
-])
+        element: <AuthForm />,
+    },
+]);
 
 function App() {
   return (

@@ -9,7 +9,7 @@ import {useNavigate} from 'react-router-dom'
 import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle,} from "./ui/dialog"
 import Navbar from "./Navbar";
 import HeaderBar from "./HeaderBar";
-import {getCurrentUser, logout} from "../logic/userService";
+import {UserService} from "../logic/userService";
 
 export default function Profile() {
   const navigate = useNavigate()
@@ -19,6 +19,7 @@ export default function Profile() {
     praiseTurnedOff: false,
   })
   const [isPopupOpen, setIsPopupOpen] = useState(false)
+  const userService = new UserService();
 
   const handlePasswordChange = (e) => {
     e.preventDefault()
@@ -29,8 +30,7 @@ export default function Profile() {
   }
 
   const handleLogout = () => {
-    logout()
-    console.log('Logging out')
+    userService.logout()
     navigate('/')
   }
 
@@ -42,10 +42,10 @@ export default function Profile() {
         <div className="flex items-center p-4">
           <User className="h-8 w-8 mr-2" />
           <div>
-            <h2 className="font-semibold">{getCurrentUser()}</h2>
+            <h2 className="font-semibold">{userService.getCurrentUser().name}</h2>
             <div className="flex gap-4 text-sm text-muted-foreground">
-              <span>0 Gelobt</span>
-              <span>28 Lobe</span>
+              <span>{userService.getCurrentUser().profile.gelobt} Gelobt</span>
+              <span>{userService.getCurrentUser().profile.lobe} Lob(e) verteilt</span>
             </div>
           </div>
         </div>
