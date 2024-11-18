@@ -60,7 +60,7 @@ Step 1.
 `git checkout develop`  
 
 `loben-on-stairs/src/App.js` Should be BACKEND-URL `http://localhost:5000`  
-`loben-on-stairs/backend/index.js` Should be BACKEND-URL`mongodb://localhost:27017/`  
+`loben-on-stairs/backend/index.js` Should be BACKEND-URL`mongodb://mongo:27017/`  
 
 Now it should be possible to StartUp with `docker-compose up`
 
