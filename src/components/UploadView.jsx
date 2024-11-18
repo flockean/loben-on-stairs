@@ -3,25 +3,25 @@
 import {useState} from 'react'
 import {Upload as UploadIcon, User} from "lucide-react"
 import Navbar from "./Navbar";
-import Avatar1 from '../assets/images/avatar-1.jpg';
 import type {Post} from "../logic/registerMocks";
 import {MOCK_FEED} from "../logic/registerMocks";
 import HeaderBar from "./HeaderBar";
 import {useNavigate} from "react-router-dom";
 import {UserService} from "../logic/userService";
 import {backendurl} from "../App";
+import Avatar1 from "../assets/images/avatar-1.jpg"
 
 // Mock user data
 const MOCK_USERS = [
-    { id: '1', name: 'Lucas', avatar: Avatar1 },
-    { id: '2', name: 'Leo', avatar: Avatar1 },
-    { id: '3', name: 'Andi', avatar: Avatar1 },
+    { id: '1', name: 'Lucas07', avatar: Avatar1 },
+    { id: '2', name: 'LeoX', avatar: Avatar1 },
+    { id: '3', name: 'Sophie', avatar: Avatar1 },
     { id: '4', name: 'Max', avatar: Avatar1 },
     { id: '5', name: 'Ronny', avatar: Avatar1 },
     { id: '6', name: 'Simon', avatar: Avatar1 },
-    { id: '7', name: 'DerWildePeter', avatar: Avatar1 },
-    { id: '8', name: 'Olaf', avatar: Avatar1 },
-    { id: '9', name: 'HeiligerSprinterX', avatar: Avatar1 },
+    { id: '7', name: 'Hans', avatar: Avatar1 },
+    { id: '8', name: 'Carla', avatar: Avatar1 },
+    { id: '9', name: 'Sabine', avatar: Avatar1 },
 ]
 
 export default function UploadView() {
@@ -118,7 +118,7 @@ export default function UploadView() {
             id: 0,
             username: selectedUser.name,
             byUser: userService.getCurrentUser().name,
-            avatar: Avatar1,
+            avatar: User,
             image: URL.createObjectURL(mediaFile),
             caption: newCaption,
             comments: []
@@ -215,7 +215,7 @@ export default function UploadView() {
                                     }}
                                 >
                                     <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
-                                        <img src={user.avatar} alt="" className="w-12 h-12 rounded-full" />
+                                        <User alt="" className="w-12 h-12 rounded-full" />
                                     </div>
                                     <span className="text-sm text-center">{user.name}</span>
                                 </button>

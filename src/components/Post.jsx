@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Flag, Send} from 'lucide-react';
+import {Flag, Send, User} from 'lucide-react';
 import {UserService} from "../logic/userService";
 
 
@@ -56,8 +56,7 @@ const SocialPost = ({ post }) => {
     return (
         <div className="w-full max-w-2xl mx-auto bg-white rounded-lg shadow-md overflow-hidden my-4">
             <div className="flex items-center space-x-4 p-4 border-b">
-                <img
-                    src={post.avatar.toString()}
+                <User
                     alt={post.username}
                     className="w-10 h-10 rounded-full"
                 />

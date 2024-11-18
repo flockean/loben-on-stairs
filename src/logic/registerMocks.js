@@ -1,7 +1,13 @@
 import Avatar1 from "../assets/images/avatar-1.jpg";
 import feedImage1 from "../assets/images/stairs-1.jpg";
 import feedImage2 from "../assets/images/stairs-2.jpg";
-
+import maxImage from '../assets/images/MaxRückwarts.webp';
+import hansImage from '../assets/images/HansGuteHaltung.webp';
+import sabineImage from '../assets/images/SabineCountingStairs.webp';
+import peterZugig from '../assets/images/PeterZugig.webp';
+import extremDead from '../assets/images/BrutalDead.webp';
+import lisaQuiet from '../assets/images/LisaQuiet.webp';
+import extremSafe from '../assets/images/ExtremSafe.webp';
 
 export interface Post {
     id: string,
@@ -26,11 +32,11 @@ export const MOCK_FEED: Post[] = [
         username: 'Hans',
         byUser: 'Anonymous',
         avatar: Avatar1,
-        image: feedImage1,
-        caption: 'Hans hat heute die Treppe mit guter Haltung erklommen!',
+        image: hansImage,
+        caption: 'Hans hat heute die Treppe mit guter Haltung erklommen! #Gesund #Rückrat #HandlaufBenutzt',
         comments: [
-            {id: 1, username: 'Fred', text: 'Das Rückgrat bleibt gesund – weiter so, Hans!'},
-            {id: 2, username: 'Leo', text: 'Perfekte Haltung, Hans! Das motiviert.'},
+            {id: 1, username: 'Fred', text: 'Ich sehe da keine richtige Sicherheit Hans mit Handlauf ;('},
+            {id: 2, username: 'Leo', text: 'Perfekte Haltung, Hans! Da merkt man deine stabile Figur'},
         ],
     },
     {
@@ -38,11 +44,10 @@ export const MOCK_FEED: Post[] = [
         username: 'Peter',
         byUser: 'Anonymous',
         avatar: Avatar1,
-        image: feedImage2,
-        caption: 'Peter hat es geschafft, die Treppe ohne Pause zu nehmen.',
+        image: peterZugig,
+        caption: 'Peter hat es geschafft, die Treppe ohne Pause zu nehmen. Sogar ab der Mitte sicherer als auf diesem Bild o_O #GefährlicherStart',
         comments: [
-            {id: 1, username: 'Jürgen', text: 'Beeindruckend, Peter!'},
-            {id: 2, username: 'Simon', text: 'Das nenne ich Ausdauer!'},
+            {id: 1, username: 'Jürgen', text: 'Beeindruckend, Peter!'}
         ],
     },
     {
@@ -51,7 +56,7 @@ export const MOCK_FEED: Post[] = [
         byUser: 'Anonymous',
         avatar: Avatar1,
         image: feedImage1,
-        caption: 'Maria hat auf jeder Stufe ihr Tempo gehalten – gleichmäßig und ruhig!',
+        caption: 'Maria hat auf jeder Stufe ihr Tempo gehalten – gleichmäßig und ruhig! #AufmerksamGewesen #HandyWeggesteckt',
         comments: [
             {id: 1, username: 'Sophie', text: 'Maria, das ist echte Konzentration!'},
             {id: 2, username: 'Lukas', text: 'Perfekte Balance, Maria!'},
@@ -62,11 +67,12 @@ export const MOCK_FEED: Post[] = [
         username: 'Max',
         byUser: 'Anonymous',
         avatar: Avatar1,
-        image: feedImage2,
+        image: maxImage,
         caption: 'Max hat die Treppe rückwärts bewältigt – das ist Koordination!',
         comments: [
             {id: 1, username: 'Tina', text: 'Wow, Max – das ist Mut!'},
             {id: 2, username: 'Paul', text: 'Unkonventionell, aber beeindruckend!'},
+            {id: 3, username: 'Lucas', text: 'Ihr seid doch gestört! DAS IST NICHT SICHER!'}
         ],
     },
     {
@@ -74,8 +80,8 @@ export const MOCK_FEED: Post[] = [
         username: 'Lisa',
         byUser: 'Anonymous',
         avatar: Avatar1,
-        image: feedImage1,
-        caption: 'Lisa hat heute die Treppen extra leise genommen. Rücksichtsvoll!',
+        image: lisaQuiet,
+        caption: 'Lisa hat heute die Treppen extra leise genommen. Rücksichtsvoll! #AufmerksamGewesen #Ninja',
         comments: [
             {id: 1, username: 'Mara', text: 'Danke für deine Rücksicht, Lisa!'},
             {id: 2, username: 'Tom', text: 'Kaum gehört – toll!'},
@@ -87,7 +93,7 @@ export const MOCK_FEED: Post[] = [
         byUser: 'Anonymous',
         avatar: Avatar1,
         image: feedImage2,
-        caption: 'Klaus hat heute jede zweite Stufe genommen – was für ein Sprung!',
+        caption: 'Klaus hat heute jede zweite Stufe genommen – was für ein Sprung! #GegenDasSystem',
         comments: [
             {id: 1, username: 'Ben', text: 'Energie pur, Klaus!'},
             {id: 2, username: 'Susi', text: 'Sportlich unterwegs!'},
@@ -98,8 +104,8 @@ export const MOCK_FEED: Post[] = [
         username: 'Sabine',
         byUser: 'Anonymous',
         avatar: Avatar1,
-        image: feedImage1,
-        caption: 'Sabine hat jede Stufe gezählt. Ein Zeichen der Achtsamkeit!',
+        image: sabineImage,
+        caption: 'Sabine hat jede Stufe gezählt. Ein Zeichen der Achtsamkeit! #AufmerksamGewesen',
         comments: [
             {id: 1, username: 'Martin', text: 'So fokussiert – das ist toll!'},
             {id: 2, username: 'Clara', text: 'Ein Schritt nach dem anderen – super, Sabine!'},
@@ -110,39 +116,52 @@ export const MOCK_FEED: Post[] = [
         username: 'Lena',
         byUser: 'Anonymous',
         avatar: Avatar1,
-        image: feedImage1,
-        caption: 'Lena hat heute zwei Stockwerke ohne Pause geschafft!',
+        image: extremSafe,
+        caption: 'Lena war die einzige die wirklich auf sich achtet! #AufmerksamGewesen #LangsamGelaufen #HandyWeggesteckt #HandlaufBenutzt',
         comments: [
             {id: 1, username: 'Anna', text: 'Top Leistung, Lena!'},
-            {id: 2, username: 'Tom', text: 'Das ist Ausdauer pur!'},
+            {id: 2, username: 'Tom', text: 'Du bist das Vorbild für uns alle!'},
+        ],
+    },
+
+    {
+        id: 9,
+        username: 'Erik',
+        byUser: 'Anonymous',
+        avatar: Avatar1,
+        image: extremDead,
+        caption: 'Erik ist die Treppe hinaufgegangen, ohne das Geländer anzufassen! #GegenDasSystem #Krankenhaus',
+        comments: [
+            {id: 1, username: 'Hannah', text: 'Oh nein Erik, was passiert dir denn da'},
+            {id: 2, username: 'Leo', text: 'Das ist gefährlich Erik!'},
         ],
     },
     {
-        id: 9,
+        id: 10,
         username: 'Marco',
         byUser: 'Anonymous',
         avatar: Avatar1,
         image: feedImage2,
-        caption: 'Marco ist die Treppe rückwärts gegangen – das nenne ich Geschick!',
+        caption: 'Marco ist die Treppe rückwärts gegangen – das nenne ich Geschick! #GegenDasSystem',
         comments: [
             {id: 1, username: 'Jana', text: 'Mutig, Marco!'},
             {id: 2, username: 'Tim', text: 'Wow, beeindruckend!'},
         ],
     },
     {
-        id: 10,
+        id: 11,
         username: 'Sarah',
         byUser: 'Anonymous',
         avatar: Avatar1,
         image: feedImage1,
-        caption: 'Sarah hat heute jede zweite Stufe ausgelassen!',
+        caption: 'Sarah hat heute jede zweite Stufe ausgelassen! #GegenDasSystem',
         comments: [
             {id: 1, username: 'Klara', text: 'Du springst wie ein Reh, Sarah!'},
             {id: 2, username: 'Paul', text: 'Sportlich, sportlich!'},
         ],
     },
     {
-        id: 11,
+        id: 12,
         username: 'Tobias',
         byUser: 'Anonymous',
         avatar: Avatar1,
@@ -154,7 +173,7 @@ export const MOCK_FEED: Post[] = [
         ],
     },
     {
-        id: 12,
+        id: 13,
         username: 'Anna',
         byUser: 'Anonymous',
         avatar: Avatar1,
@@ -166,7 +185,7 @@ export const MOCK_FEED: Post[] = [
         ],
     },
     {
-        id: 13,
+        id: 14,
         username: 'Jörg',
         byUser: 'Anonymous',
         avatar: Avatar1,
@@ -178,7 +197,7 @@ export const MOCK_FEED: Post[] = [
         ],
     },
     {
-        id: 14,
+        id: 15,
         username: 'Carla',
         byUser: 'Anonymous',
         avatar: Avatar1,
@@ -188,161 +207,5 @@ export const MOCK_FEED: Post[] = [
             {id: 1, username: 'Ronja', text: 'Tolle Fokussierung!'},
             {id: 2, username: 'Ben', text: 'Perfekte Achtsamkeit, Carla!'},
         ],
-    },
-    {
-        id: 15,
-        username: 'Frank',
-        byUser: 'Anonymous',
-        avatar: Avatar1,
-        image: feedImage2,
-        caption: 'Frank hat die Treppe im langsamen, gleichmäßigen Tempo genommen.',
-        comments: [
-            {id: 1, username: 'Susi', text: 'Genau richtig für die Gelenke!'},
-            {id: 2, username: 'Tom', text: 'Vorbildlich, Frank!'},
-        ],
-    },
-    {
-        id: 16,
-        username: 'Lara',
-        byUser: 'Anonymous',
-        avatar: Avatar1,
-        image: feedImage1,
-        caption: 'Lara hat heute beim Treppensteigen gelächelt!',
-        comments: [
-            {id: 1, username: 'Nina', text: 'Das macht allen den Tag besser!'},
-            {id: 2, username: 'Jan', text: 'Positive Energie, Lara!'},
-        ],
-    },
-    {
-        id: 17,
-        username: 'Erik',
-        byUser: 'Anonymous',
-        avatar: Avatar1,
-        image: feedImage2,
-        caption: 'Erik ist die Treppe hinaufgegangen, ohne das Geländer anzufassen!',
-        comments: [
-            {id: 1, username: 'Hannah', text: 'Was für ein Gleichgewichtssinn!'},
-            {id: 2, username: 'Leo', text: 'Beeindruckend, Erik!'},
-        ],
-    },
-    {
-        id: 18,
-        username: 'Julia',
-        byUser: 'Anonymous',
-        avatar: Avatar1,
-        image: feedImage1,
-        caption: 'Julia hat auf jeder Treppenstufe kurz innegehalten.',
-        comments: [
-            {id: 1, username: 'Paul', text: 'Achtsamkeit pur!'},
-            {id: 2, username: 'Lisa', text: 'Das ist innere Ruhe, Julia!'},
-        ],
-    },
-    {
-        id: 19,
-        username: 'Philipp',
-        byUser: 'Anonymous',
-        avatar: Avatar1,
-        image: feedImage2,
-        caption: 'Philipp hat heute die Treppe zwei Stufen auf einmal genommen.',
-        comments: [
-            {id: 1, username: 'Max', text: 'So viel Energie, Philipp!'},
-            {id: 2, username: 'Mira', text: 'Starke Leistung!'},
-        ],
-    },
-    {
-        id: 20,
-        username: 'Tina',
-        byUser: 'Anonymous',
-        avatar: Avatar1,
-        image: feedImage1,
-        caption: 'Tina hat es geschafft, die Treppe im Zickzack zu nehmen!',
-        comments: [
-            {id: 1, username: 'Sina', text: 'Das erfordert Koordination!'},
-            {id: 2, username: 'Lukas', text: 'Kreativ, Tina!'},
-        ],
-    },
-    {
-        id: 21,
-        username: 'Sebastian',
-        byUser: 'Anonymous',
-        avatar: Avatar1,
-        image: feedImage2,
-        caption: 'Sebastian hat heute die Treppe besonders zügig erklommen!',
-        comments: [
-            {id: 1, username: 'Anna', text: 'Super Geschwindigkeit!'},
-            {id: 2, username: 'Markus', text: 'Respekt, Sebastian!'},
-        ],
-    },
-    {
-        id: 22,
-        username: 'Sven',
-        byUser: 'Anonymous',
-        avatar: Avatar1,
-        image: feedImage1,
-        caption: 'Sven ist die Treppe mit schwerem Rucksack gestiegen. Respekt!',
-        comments: [
-            {id: 1, username: 'Paul', text: 'Ganz schön anstrengend, Sven!'},
-            {id: 2, username: 'Maria', text: 'Tolles Training!'},
-        ],
-    },
-    {
-        id: 23,
-        username: 'Nina',
-        byUser: 'Anonymous',
-        avatar: Avatar1,
-        image: feedImage2,
-        caption: 'Nina hat heute ihren Kollegen zum Treppensteigen motiviert!',
-        comments: [
-            {id: 1, username: 'Mara', text: 'Was für ein Teamgeist!'},
-            {id: 2, username: 'Oliver', text: 'Große Klasse, Nina!'},
-        ],
-    },
-    {
-        id: 24,
-        username: 'Oliver',
-        byUser: 'Anonymous',
-        avatar: Avatar1,
-        image: feedImage1,
-        caption: 'Oliver hat jede Stufe mit Bedacht genommen. Vorbildlich!',
-        comments: [
-            {id: 1, username: 'Mona', text: 'Achtsamkeit pur!'},
-            {id: 2, username: 'Lara', text: 'Perfekte Technik!'},
-        ],
-    },
-    {
-        id: 25,
-        username: 'Linda',
-        byUser: 'Anonymous',
-        avatar: Avatar1,
-        image: feedImage2,
-        caption: 'Linda hat sich für jede Etage ein Ziel gesetzt!',
-        comments: [
-            {id: 1, username: 'Ella', text: 'Das ist Motivation!'},
-            {id: 2, username: 'Karl', text: 'Tolle Idee, Linda!'},
-        ],
-    },
-    {
-        id: 26,
-        username: 'Kurt',
-        byUser: 'Anonymous',
-        avatar: Avatar1,
-        image: feedImage1,
-        caption: 'Kurt hat bei jedem Stockwerk einmal tief durchgeatmet.',
-        comments: [
-            {id: 1, username: 'Rita', text: 'Richtig gute Atemtechnik!'},
-            {id: 2, username: 'Ben', text: 'Das hält fit, Kurt!'},
-        ],
-    },
-    {
-        id: 27,
-        username: 'Sophia',
-        byUser: 'Anonymous',
-        avatar: Avatar1,
-        image: feedImage2,
-        caption: 'Sophia hat die Treppe mit einem fröhlichen Pfeifen erklommen.',
-        comments: [
-            {id: 1, username: 'Leon', text: 'Musik für die Ohren!'},
-            {id: 2, username: 'Eva', text: 'Das macht gute Laune!'},
-        ],
-    },
+    }
 ];
