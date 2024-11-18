@@ -3,6 +3,7 @@ import {Flag, Send, User} from 'lucide-react';
 import {UserService} from "../logic/userService";
 
 
+
 const SocialPost = ({ post }) => {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
