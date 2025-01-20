@@ -1,4 +1,4 @@
-FROM node:20.18-bullseye as node
+FROM node:20.18-bullseye AS node
 
 LABEL authors="flockean"
 

@@ -17,6 +17,8 @@ services:
     depends_on:
       mongo:
         condition: service_started
+    environment:
+      - MONGO_URL=mongodb://mongo:27017
 
   frontend:
     build: .
@@ -27,6 +29,8 @@ services:
         condition: service_started
       backend:
         condition: service_started
+    environment:
+      - BACKEND_URL=http://backend:5000
 
 networks:
   default:

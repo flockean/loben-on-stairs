@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {Flag, Send, User} from 'lucide-react';
-import {UserService} from "../logic/userService";
+import UserService from "../logic/userService"
 
 
 
 const SocialPost = ({ post }) => {
+    const userService = UserService;
+
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
-    const userService = new UserService();
 
     useEffect(() => {
         if (post && post.comments) {
@@ -20,21 +21,23 @@ const SocialPost = ({ post }) => {
     }
 
     function handleCaption(caption) {
-        const hashtagRegex = /#(\w+)/g;
-
-        // Teile den Text in Wörter und prüfe jedes Wort auf einen Hashtag
-        const words = caption.split(' ');
-        return words.map(word => {
-            if (word.match(hashtagRegex)) {
-                // Wenn es ein Hashtag ist, gib ein JSX-Element zurück
-                return <span key={word} className="text-blue-500 underline">{word} </span>;
-            } else {
-                // Ansonsten gib das Wort als Text zurück
-                return word + " ";
-            }
-        });
-    }
-
+        try {
+            const hashtagRegex = /#(\w+)/g;
+            // Teile den Text in Wörter und prüfe jedes Wort auf einen Hashtag
+            const words = caption.split(' ');
+            return words.map(word => {
+                if (word.match(hashtagRegex)) {
+                    // Wenn es ein Hashtag ist, gib ein JSX-Element zurück
+                    return <span key={word} className="text-blue-500 underline">{word} </span>;
+                } else {
+                    // Ansonsten gib das Wort als Text zurück
+                    return word + " ";
+                }
+            });
+        } catch (error) {
+            console.log(error);
+            return caption;
+    }}
 
     const handleSubmitComment = (e) => {
         e.preventDefault();

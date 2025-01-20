@@ -1,12 +1,12 @@
-import type {CurrentUser} from "./collections";
-import {backendurl} from "../App";
+import ApiService from "./apiService"
 
+class UserService{
 
-export class UserService{
+    constructor() {
+        this.apiService = ApiService
+    }
 
-    static currentUser: CurrentUser = { name: '', password: '', profile: {}};
-
-    getCurrentUser(): CurrentUser {
+    getCurrentUser() {
         return JSON.parse(localStorage.getItem("currentUser"))
     }
 
@@ -15,68 +15,61 @@ export class UserService{
     }
 
     clearCurrentUser() {
-        localStorage.clear()
+        localStorage.removeItem("currentUser")
     }
 
     isLoggedIn() {
         return localStorage.getItem("currentUser") != null
     }
 
-    async login(name: String, password: String) {
-        const headers = new Headers({"Content-Type": "application/json"});
+    login(name, password) {
         try {
-            const response = await fetch( backendurl.BACKEND_URL + "/login", {
-                headers: headers,
-                method: "POST",
-                body: JSON.stringify({
-                    name: name,
-                    password: password
-                })
+            return this.apiService.doRequestJson("/login", "POST", {
+                name: name,
+                password: password
+            }).then(data => {
+                this.setCurrentUser(data)
+                console.log(data)
+                return true
             })
-            if (response.status === 200) {
-                let data = await response.json()
-                UserService.currentUser.name = data.name
-                UserService.currentUser.password = data.password
-                UserService.currentUser.profile = data.profile
-                let currentUser = UserService.currentUser
-                this.setCurrentUser(currentUser)
-                return true;
-            } else {
-                return false
-            }
-        } catch (err) {console.log(err)}
+        }
+        catch (err) {
+            console.log(err)
+            return false
+        }
     }
 
-    async register(name: String, password: String) {
-        const headers = new Headers({"Content-Type": "application/json"});
+    register(name, password, profile) {
         try {
-            const response = await fetch(  backendurl.BACKEND_URL + "/createUser", {
-                headers: headers,
-                method: "POST",
-                body: JSON.stringify({
-                    name: name,
-                    password: password,
-                    profile: {
-                        lobe: 0,
-                        gelobt: 0
-                    }
+            return this.apiService.doRequestJson("/register", "POST", {
+                name: name,
+                password: password,
+                profile: profile
+            }).then(data => {
+                this.setCurrentUser(data)
+                console.log(data)
+                return true
+            }) 
+        }
+        catch (err) {console.log(err)}
+    }
+
+    updatePassword(newPassword) {
+        try {
+            return this.apiService.doRequestJson("/updateUser", "PUT", {
+                name: this.getCurrentUser().name, 
+                password: newPassword   
+                }).then(data => {
+                    console.log(data)
                 })
-            })
-            if (response.status === 200) {
-                let data = await response.json()
-                UserService.currentUser.name = data.name
-                UserService.currentUser.password = data.password
-                UserService.currentUser.profile = data.profile
-                let currentUser = UserService.currentUser
-                this.setCurrentUser(currentUser)
-                return true;
-            } else {
-                return false
             }
-        } catch (err) {console.log(err)}
+        catch (err) {console.log(err)}
     }
 
     logout(){
         this.clearCurrentUser()
     }
 }
+
+UserService = new UserService()
+export default UserService;

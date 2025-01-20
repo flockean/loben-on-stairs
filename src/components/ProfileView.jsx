@@ -9,25 +9,47 @@ import {useNavigate} from 'react-router-dom'
 import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle,} from "./ui/dialog"
 import Navbar from "./Navbar";
 import HeaderBar from "./HeaderBar";
-import {UserService} from "../logic/userService";
+import UserService from "../logic/userService"
 
 export default function Profile() {
+  const userService = UserService;
   const navigate = useNavigate()
+  const [formData, setFormData] = useState({
+          oldPassword: '',
+          newPassword: '',
+          confirmPassword: ''
+      });
   const [privacySettings, setPrivacySettings] = useState({
     visible: false,
     publicPraise: false,
     praiseTurnedOff: false,
   })
   const [isPopupOpen, setIsPopupOpen] = useState(false)
-  const userService = new UserService();
 
   const handlePasswordChange = (e) => {
-    e.preventDefault()
-    // Show the popup
-    setIsPopupOpen(true)
-    // Close the popup after 2 seconds
-    setTimeout(() => setIsPopupOpen(false), 2000)
+    console.log(formData)
+    if (formData.oldPassword !== formData.newPassword &&  
+        formData.newPassword === formData.confirmPassword
+    ) {
+      userService.updatePassword(formData.oldPassword, formData.newPassword)
+      e.preventDefault()
+      // Show the popup
+      setIsPopupOpen(true)
+      // Close the popup after 2 seconds
+      setTimeout(() => setIsPopupOpen(false), 2000)
+    }
+    else {
+      alert('Passwörter stimmen nicht überein')
+    }
   }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+        ...prevState,
+        [name]: value
+    }));
+};
 
   const handleLogout = () => {
     userService.logout()
@@ -102,17 +124,26 @@ export default function Profile() {
           <form onSubmit={handlePasswordChange} className="space-y-4">
             <Input
               type="password"
+              name="oldPassword"
               placeholder="Aktuelles Passwort"
+              value={formData.oldPassword}
+              onChange={handleChange}
               required
             />
             <Input
               type="password"
+              name="newPassword"
               placeholder="Neues Passwort"
+              value={formData.newPassword}
+              onChange={handleChange}
               required
             />
             <Input
               type="password"
+              name="confirmPassword"
               placeholder="Wiederhole neues Passwort"
+              value={formData.confirmPassword}
+              onChange={handleChange}
               required
             />
             <Button type="submit" className="w-full bg-black text-white hover:bg-gray-800 transition-colors duration-200">

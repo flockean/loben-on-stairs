@@ -1,30 +1,22 @@
 'use client'
 
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import {Upload as UploadIcon, User} from "lucide-react"
 import Navbar from "./Navbar";
-import type {Post} from "../logic/registerMocks";
-import {MOCK_FEED} from "../logic/registerMocks";
 import HeaderBar from "./HeaderBar";
 import {useNavigate} from "react-router-dom";
-import {UserService} from "../logic/userService";
-import {backendurl} from "../App";
-import Avatar1 from "../assets/images/avatar-1.jpg"
+import UserService from '../logic/userService';
+import ApiService from '../logic/apiService';
+import { v4 as uuidv4 } from 'uuid';
+import { UserModel } from '../logic/collections';
 
-// Mock user data
-const MOCK_USERS = [
-    { id: '1', name: 'Lucas07', avatar: Avatar1 },
-    { id: '2', name: 'LeoX', avatar: Avatar1 },
-    { id: '3', name: 'Sophie', avatar: Avatar1 },
-    { id: '4', name: 'Max', avatar: Avatar1 },
-    { id: '5', name: 'Ronny', avatar: Avatar1 },
-    { id: '6', name: 'Simon', avatar: Avatar1 },
-    { id: '7', name: 'Hans', avatar: Avatar1 },
-    { id: '8', name: 'Carla', avatar: Avatar1 },
-    { id: '9', name: 'Sabine', avatar: Avatar1 },
-]
 
 export default function UploadView() {
+    const navigator = useNavigate()
+    const userService = UserService;
+    const apiService = ApiService;
+
+    const [users, setUsers] = useState([])
     const [step, setStep] = useState(1)
     const [selectedUser, setSelectedUser] = useState(null)
     const [caption, setCaption] = useState('')
@@ -36,11 +28,23 @@ export default function UploadView() {
         phoneAway: false,
         handrail: false,
     })
-    const navigator = useNavigate()
-    const userService = new UserService();
 
+    useEffect(function getFreshUsers() {
+        try {
+            const fetchedUser = [];
+            apiService.doRequestJson('/users', 'GET').then(data => {  
+                data.forEach(user => {
+                    fetchedUser.push(new UserModel(user.id, null, user.name, null, user.avatar, user.profile))
+                  })
+                setUsers(fetchedUser)
+              })
+          } 
+          catch (error) {
+            console.log(error)
+          }
+    }, [apiService]);
 
-    const filteredUsers = MOCK_USERS.filter(user =>
+    const filteredUsers = users.filter(user =>
         user.name.toLowerCase().includes(searchQuery.toLowerCase())
     )
 
@@ -55,47 +59,49 @@ export default function UploadView() {
             }
         }
     }
-
-    function addNewPostToFeed(newPost: Post) {
-        const highestId = MOCK_FEED.reduce((maxId, post) => Math.max(maxId, post.id), 0);
-        newPost.id = highestId + 1;
-        let myHeaders = new Headers({
-            "Content-Type": "application/json",
-        });
+    
+    const uploadImage = (file) => {
         try {
-            fetch(backendurl.BACKEND_URL + "/createPost", {
-                method: 'POST',
-                headers: myHeaders,
-                body: JSON.stringify({
-                    id: newPost.id,
-                    username: newPost.username,
-                    byUser: newPost.byUser,
-                    comments: []
-                })
-            }).then(
-                () => {
-                    console.log("Post Created")
+            const formData = new FormData();
+            formData.append('file', file);
+            return apiService.doRequestFormData("/upload", "POST", formData).then(
+                data => {
+                    return data.file.filename
                 }
-            )
-            fetch(backendurl.BACKEND_URL + "/updateUser", {
-                method: "PUT",
-                headers: myHeaders,
-                body: JSON.stringify({
-                    name: userService.getCurrentUser().name,
-                    profile: userService.getCurrentUser().profile.lobe + 1
-                })
-            }).then(
+            );
+        } catch (error) {
+            console.error('Error uploading image:', error);
+        }
+    };
+
+    async function addNewPostToFeed(newPost) {
+        const updatedUserStats = userService.getCurrentUser()
+        updatedUserStats.profile.lobe += 1
+
+        try {
+            var filename = await uploadImage(mediaFile);
+            newPost.image = apiService.getUrl() + "/image/" + filename;
+
+            apiService.doRequestJson("/createPost", "POST", {
+                id: uuidv4(),
+                username: newPost.username,
+                timestamp: new Date().toISOString(), 
+                byUser: newPost.byUser,
+                image: newPost.image,
+                comments: []
+            }).then(() => {
+                console.log("Post created")
+            })
+            
+            apiService.doRequestJson("/updateUser", "PUT", updatedUserStats).then(
                 () => {
-                    let currentUser = userService.getCurrentUser()
-                    currentUser.profile.lobe++
-                    userService.setCurrentUser(currentUser)
+                    userService.setCurrentUser(updatedUserStats)
                     console.log("Stats Updated")
                 }
             )
         } catch (err) {
             console.log(err)
-            }
-        MOCK_FEED.push(newPost);
+        }
     }
 
     const handleSubmit = async () => {
@@ -114,7 +120,7 @@ export default function UploadView() {
         }
         var newCaption = caption + capOpts
 
-        let uploadPost: Post = {
+        let uploadPost = {
             id: 0,
             username: selectedUser.name,
             byUser: userService.getCurrentUser().name,
@@ -125,9 +131,6 @@ export default function UploadView() {
         }
 
         addNewPostToFeed(uploadPost)
-        navigator("/home")
-        // Here you would implement the actual upload logic
-        console.log(uploadPost)
         navigator("/home")
     }
 
