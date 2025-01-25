@@ -1,6 +1,6 @@
 'use client'
 
-import {useState} from 'react'
+import {useEffect, useState, useRef} from 'react';
 import {Button} from "./ui/button"
 import {Input} from "./ui/input"
 import {Switch} from "./ui/switch"
@@ -13,12 +13,22 @@ import UserService from "../logic/userService"
 
 export default function Profile() {
   const userService = UserService;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
           oldPassword: '',
           newPassword: '',
           confirmPassword: ''
       });
+  const [UserData, setUserData] = useState({profile: {}});
+  useEffect(function getUserData() {
+    try {
+      setUserData(userService.getCurrentUser())
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }, [userService]) 
+
   const [privacySettings, setPrivacySettings] = useState({
     visible: false,
     publicPraise: false,
@@ -64,10 +74,10 @@ export default function Profile() {
         <div className="flex items-center p-4">
           <User className="h-8 w-8 mr-2" />
           <div>
-            <h2 className="font-semibold">{userService.getCurrentUser().name}</h2>
+            <h2 className="font-semibold">{UserData.name}</h2>
             <div className="flex gap-4 text-sm text-muted-foreground">
-              <span>{userService.getCurrentUser().profile.gelobt} Gelobt</span>
-              <span>{userService.getCurrentUser().profile.lobe} Lob(e) verteilt</span>
+              <span>{UserData.profile.gelobt} Gelobt</span>
+              <span>{UserData.profile.lobe} Lob(e) verteilt</span>
             </div>
           </div>
         </div>

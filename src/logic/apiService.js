@@ -1,16 +1,42 @@
-
 class ApiService{
 
   constructor() {
     this.url = process.env.BACKEND_URL || "http://localhost:5000"
-    this.headerJson = new Headers({"Content-Type": "application/json"})
+    this.authorization = localStorage.getItem("token")
+    this.headerJson = {
+      "Content-Type": "application/json",
+      'Authorization': 'Bearer ' + this.authorization,
+    }
   }
 
-  async doRequestJson(urlPath, method, body){
+  async login(urlPath, method, body){
     try {
       return fetch(this.url + urlPath, {
         method: method,
         headers: this.headerJson,
+        body: JSON.stringify(body)
+      }).then(response => {
+        if (response.ok) {
+          return response.json()
+        }
+        else {
+          throw new Error(response.statusText)
+        }
+      })
+    }
+      catch (error) {
+        console.log(error)
+      }
+    }
+
+  doRequestJson(urlPath, method, body){
+    try {
+      return fetch(this.url + urlPath, {
+        method: method,
+        headers: this.headerJson = {
+          "Content-Type": "application/json",
+          'authorization': localStorage.getItem("token"),
+        },
         body: JSON.stringify(body)
       }).then(response => {
         if (response.ok) {
@@ -34,6 +60,9 @@ class ApiService{
     try {
       return fetch(this.url + urlpath, {
         method: method,
+        headers: {
+          'authorization': localStorage.getItem("token"),
+        },
         body: body
       }).then(response => {
         if (response.ok) {

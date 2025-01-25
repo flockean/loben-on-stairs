@@ -1,9 +1,27 @@
 import ApiService from "./apiService"
+import { decodeToken } from "react-jwt";
 
 class UserService{
 
     constructor() {
-        this.apiService = ApiService
+        this.apiService = ApiService;
+    }
+
+    initCurrentUser(token) {
+        const decodedToken = decodeToken(token)
+        console.log(decodedToken)
+        const reqPath = "/user/" + decodedToken.user_id.userId
+        this.apiService.doRequestJson(reqPath, "GET").then(data => {
+        this.setCurrentUser(data)
+        })
+    } 
+
+    getAuthToken() {
+        return localStorage.getItem("token")
+    }
+
+    setAuthToken(token) {
+        localStorage.setItem("token", token)
     }
 
     getCurrentUser() {
@@ -16,20 +34,25 @@ class UserService{
 
     clearCurrentUser() {
         localStorage.removeItem("currentUser")
+        localStorage.removeItem("token")
     }
 
     isLoggedIn() {
-        return localStorage.getItem("currentUser") != null
+        return localStorage.getItem("token") != null
     }
 
     login(name, password) {
         try {
-            return this.apiService.doRequestJson("/login", "POST", {
+            return this.apiService.login("/login", "POST", {
                 name: name,
                 password: password
             }).then(data => {
-                this.setCurrentUser(data)
-                console.log(data)
+                this.setAuthToken(data.token)
+                const decodedToken = decodeToken(data.token)
+                const reqPath = "/user/" + decodedToken.user_id.userId
+                this.apiService.doRequestJson(reqPath, "GET").then(data => {
+                    this.setCurrentUser(data)
+                })
                 return true
             })
         }

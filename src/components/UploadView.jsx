@@ -1,6 +1,6 @@
 'use client'
 
-import {useEffect, useState} from 'react'
+import {useRef, useEffect, useState} from 'react'
 import {Upload as UploadIcon, User} from "lucide-react"
 import Navbar from "./Navbar";
 import HeaderBar from "./HeaderBar";
@@ -19,6 +19,7 @@ export default function UploadView() {
     const [users, setUsers] = useState([])
     const [step, setStep] = useState(1)
     const [selectedUser, setSelectedUser] = useState(null)
+    const initialized = useRef(false)
     const [caption, setCaption] = useState('')
     const [searchQuery, setSearchQuery] = useState('')
     const [mediaFile, setMediaFile] = useState(null)
@@ -31,6 +32,8 @@ export default function UploadView() {
 
     useEffect(function getFreshUsers() {
         try {
+            if (!initialized.current) {
+                initialized.current = true
             const fetchedUser = [];
             apiService.doRequestJson('/users', 'GET').then(data => {  
                 data.forEach(user => {
@@ -38,7 +41,7 @@ export default function UploadView() {
                   })
                 setUsers(fetchedUser)
               })
-          } 
+          } }
           catch (error) {
             console.log(error)
           }
@@ -85,6 +88,7 @@ export default function UploadView() {
             apiService.doRequestJson("/createPost", "POST", {
                 id: uuidv4(),
                 username: newPost.username,
+                caption: newPost.caption,
                 timestamp: new Date().toISOString(), 
                 byUser: newPost.byUser,
                 image: newPost.image,

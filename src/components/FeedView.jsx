@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import Navbar from './Navbar';
 import HeaderBar from "./HeaderBar";
 import SocialPost from "./Post";
@@ -6,12 +6,14 @@ import ApiService from '../logic/apiService';
 import {Post} from '../logic/collections';
 
 
-
 export default function FeedView() {
     const apiService = ApiService;
     const [feed, setFeed] = useState([]);
+    const initialized = useRef(false)
     useEffect(function getFreshFeed() {
       try {
+        if (!initialized.current) {
+          initialized.current = true
         const fetchedPosts = [];
         apiService.doRequestJson('/posts', 'GET').then(data => {  
             data.forEach(post => {
@@ -19,7 +21,7 @@ export default function FeedView() {
               })
             setFeed(fetchedPosts)
         })
-      }
+      }}
       catch (error) {
         console.log(error)
       }
@@ -28,6 +30,7 @@ export default function FeedView() {
     const returnFeed = feed.map((post) => (
       <SocialPost key={post.id} post={post}/>  
     )).reverse();
+  
     
 
     return (
