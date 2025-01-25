@@ -1,5 +1,6 @@
 import ApiService from "./apiService"
 import { decodeToken } from "react-jwt";
+import { v4 as uuidv4 } from 'uuid';
 
 class UserService{
 
@@ -65,6 +66,7 @@ class UserService{
     register(name, password, profile) {
         try {
             return this.apiService.doRequestJson("/register", "POST", {
+                id: uuidv4(),
                 name: name,
                 password: password,
                 profile: profile

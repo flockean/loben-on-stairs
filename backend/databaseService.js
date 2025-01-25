@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import configService from "./configService.js"
+import { randomUUID } from "crypto";
 
 const connectDB = async () => {
     try {
@@ -21,8 +22,12 @@ const closeDB = async () => {
     }
 };
 
+const getRandomUUID = () => {
+    return randomUUID().toString()
+}
+
 const FeedPostSchema = new mongoose.Schema({
-    id: { type: String, required: true, default: crypto.randomUUID() },
+    id: { type: String, required: true, default: getRandomUUID() },
     timestamp: { type: Date, default: new Date().toISOString() },
     username: { type: String, required: true },
     caption: { type: String, default: '' },
@@ -39,7 +44,7 @@ const FeedPostSchema = new mongoose.Schema({
 });
 
 const UserSchema = new mongoose.Schema({
-    id: { type: String, required: true, default: crypto.randomUUID() },
+    id: { type: String, required: true, default: randomUUID().toString() },
     creation: { type: Date, default: new Date().toISOString()},
     name: { type: String, required: true, unique: true},
     password: { type: String, required: true },

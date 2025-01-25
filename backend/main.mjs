@@ -57,6 +57,7 @@ app.get('/user/:userid', authService.verifyToken ,async (req, res) => {
     try {
         const user = await dbService.User.findOne({id: req.params.userid})
         console.log('User Requested:', user)
+        user.password = undefined
         res.status(202).send(user)
     } catch (error) {
         console.error('Error getting users:', error);
