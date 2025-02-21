@@ -8,26 +8,21 @@ import peterZugig from '../assets/images/PeterZugig.webp';
 import extremDead from '../assets/images/BrutalDead.webp';
 import lisaQuiet from '../assets/images/LisaQuiet.webp';
 import extremSafe from '../assets/images/ExtremSafe.webp';
+import {Post} from './collections';
 
-export interface Post {
-    id: string,
-    username: string,
-    byUser: string,
-    avatar: URL,
-    image: URL,
-    caption: string,
-    // eslint-disable-next-line no-use-before-define
-    comments: Comment[]
-}
+const createPost = (data) => new Post(
+    data.id,
+    new Date().toISOString(),
+    data.username,
+    data.byUser,
+    data.avatar,
+    data.image,
+    data.caption,
+    data.comments
+);
 
-export interface Comment {
-    id: string,
-    username: string,
-    text: string
-}
-
-export const MOCK_FEED: Post[] = [
-    {
+export const MOCK_FEED = [
+    createPost({
         id: 1,
         username: 'Hans',
         byUser: 'Anonymous',
@@ -38,8 +33,8 @@ export const MOCK_FEED: Post[] = [
             {id: 1, username: 'Fred', text: 'Ich sehe da keine richtige Sicherheit Hans mit Handlauf ;('},
             {id: 2, username: 'Leo', text: 'Perfekte Haltung, Hans! Da merkt man deine stabile Figur'},
         ],
-    },
-    {
+    }),
+    createPost({
         id: 2,
         username: 'Peter',
         byUser: 'Anonymous',
@@ -49,8 +44,8 @@ export const MOCK_FEED: Post[] = [
         comments: [
             {id: 1, username: 'Jürgen', text: 'Beeindruckend, Peter!'}
         ],
-    },
-    {
+    }),
+    createPost({
         id: 3,
         username: 'Maria',
         byUser: 'Anonymous',
@@ -61,8 +56,8 @@ export const MOCK_FEED: Post[] = [
             {id: 1, username: 'Sophie', text: 'Maria, das ist echte Konzentration!'},
             {id: 2, username: 'Lukas', text: 'Perfekte Balance, Maria!'},
         ],
-    },
-    {
+    }),
+    createPost({
         id: 4,
         username: 'Max',
         byUser: 'Anonymous',
@@ -74,8 +69,8 @@ export const MOCK_FEED: Post[] = [
             {id: 2, username: 'Paul', text: 'Unkonventionell, aber beeindruckend!'},
             {id: 3, username: 'Lucas', text: 'Ihr seid doch gestört! DAS IST NICHT SICHER!'}
         ],
-    },
-    {
+    }),
+    createPost({
         id: 5,
         username: 'Lisa',
         byUser: 'Anonymous',
@@ -86,8 +81,8 @@ export const MOCK_FEED: Post[] = [
             {id: 1, username: 'Mara', text: 'Danke für deine Rücksicht, Lisa!'},
             {id: 2, username: 'Tom', text: 'Kaum gehört – toll!'},
         ],
-    },
-    {
+    }),
+    createPost({
         id: 6,
         username: 'Klaus',
         byUser: 'Anonymous',
@@ -98,8 +93,8 @@ export const MOCK_FEED: Post[] = [
             {id: 1, username: 'Ben', text: 'Energie pur, Klaus!'},
             {id: 2, username: 'Susi', text: 'Sportlich unterwegs!'},
         ],
-    },
-    {
+    }),
+    createPost({
         id: 7,
         username: 'Sabine',
         byUser: 'Anonymous',
@@ -110,8 +105,8 @@ export const MOCK_FEED: Post[] = [
             {id: 1, username: 'Martin', text: 'So fokussiert – das ist toll!'},
             {id: 2, username: 'Clara', text: 'Ein Schritt nach dem anderen – super, Sabine!'},
         ],
-    },
-    {
+    }),
+    createPost({
         id: 8,
         username: 'Lena',
         byUser: 'Anonymous',
@@ -122,9 +117,8 @@ export const MOCK_FEED: Post[] = [
             {id: 1, username: 'Anna', text: 'Top Leistung, Lena!'},
             {id: 2, username: 'Tom', text: 'Du bist das Vorbild für uns alle!'},
         ],
-    },
-
-    {
+    }),
+    createPost({
         id: 9,
         username: 'Erik',
         byUser: 'Anonymous',
@@ -135,8 +129,8 @@ export const MOCK_FEED: Post[] = [
             {id: 1, username: 'Hannah', text: 'Oh nein Erik, was passiert dir denn da'},
             {id: 2, username: 'Leo', text: 'Das ist gefährlich Erik!'},
         ],
-    },
-    {
+    }),
+    createPost({
         id: 10,
         username: 'Marco',
         byUser: 'Anonymous',
@@ -147,8 +141,8 @@ export const MOCK_FEED: Post[] = [
             {id: 1, username: 'Jana', text: 'Mutig, Marco!'},
             {id: 2, username: 'Tim', text: 'Wow, beeindruckend!'},
         ],
-    },
-    {
+    }),
+    createPost({
         id: 11,
         username: 'Sarah',
         byUser: 'Anonymous',
@@ -159,8 +153,8 @@ export const MOCK_FEED: Post[] = [
             {id: 1, username: 'Klara', text: 'Du springst wie ein Reh, Sarah!'},
             {id: 2, username: 'Paul', text: 'Sportlich, sportlich!'},
         ],
-    },
-    {
+    }),
+    createPost({
         id: 12,
         username: 'Tobias',
         byUser: 'Anonymous',
@@ -171,8 +165,8 @@ export const MOCK_FEED: Post[] = [
             {id: 1, username: 'Lisa', text: 'Tolle Unterstützung, Tobias!'},
             {id: 2, username: 'Max', text: 'Ein echter Teamplayer!'},
         ],
-    },
-    {
+    }),
+    createPost({
         id: 13,
         username: 'Anna',
         byUser: 'Anonymous',
@@ -183,8 +177,8 @@ export const MOCK_FEED: Post[] = [
             {id: 1, username: 'Mia', text: 'So viel Rücksicht, Anna!'},
             {id: 2, username: 'Lukas', text: 'Das ist echt cool!'},
         ],
-    },
-    {
+    }),
+    createPost({
         id: 14,
         username: 'Jörg',
         byUser: 'Anonymous',
@@ -195,8 +189,8 @@ export const MOCK_FEED: Post[] = [
             {id: 1, username: 'Dennis', text: 'Wow, das ist Energie!'},
             {id: 2, username: 'Sara', text: 'Mega Leistung, Jörg!'},
         ],
-    },
-    {
+    }),
+    createPost({
         id: 15,
         username: 'Carla',
         byUser: 'Anonymous',
@@ -207,5 +201,5 @@ export const MOCK_FEED: Post[] = [
             {id: 1, username: 'Ronja', text: 'Tolle Fokussierung!'},
             {id: 2, username: 'Ben', text: 'Perfekte Achtsamkeit, Carla!'},
         ],
-    }
+    })
 ];

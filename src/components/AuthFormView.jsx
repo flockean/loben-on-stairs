@@ -1,18 +1,18 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import {userService} from "../App";
-
 import HeaderBar from "./HeaderBar";
+import UserService from "../logic/userService"
 
 export default function AuthForm() {
+    const userService = UserService;
+    const navigate = useNavigate();
+
     const [isLogin, setIsLogin] = useState(true);
     const [formData, setFormData] = useState({
         username: '',
         password: '',
         confirmPassword: ''
     });
-
-    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -60,7 +60,7 @@ export default function AuthForm() {
                 alert('Es scheint ein Problem aufgetreten zu sein')
             }
         }
-        console.log(isLogin ? 'Login' : 'Registration', 'attempted with:', formData);
+        console.log(isLogin ? 'Login' : 'Registration', 'attempted as:', formData.username);
 
     };
 
@@ -69,159 +69,82 @@ export default function AuthForm() {
         setFormData({ username: '', password: '', confirmPassword: '' });
     };
 
-    const styles = {
-        container: {
-            fontFamily: 'Arial, sans-serif',
-            maxWidth: '300px',
-            margin: '0 auto',
-            padding: '20px',
-            boxSizing: 'border-box',
-        },
-        header: {
-            backgroundColor: '#f0f0f0',
-            padding: '10px',
-            textAlign: 'center',
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            borderBottom: '2px solid #8a2be2',
-        },
-        headerText: {
-            backgroundColor: '#8a2be2',
-            color: 'white',
-            padding: '8px',
-            margin: '-10px -10px',
-        },
-        title: {
-            textAlign: 'center',
-            marginTop: '60px',
-            marginBottom: '20px',
-            fontSize: '24px',
-            fontWeight: 'bold',
-        },
-        formGroup: {
-            marginBottom: '15px',
-        },
-        label: {
-            display: 'block',
-            marginBottom: '5px',
-            fontSize: '14px',
-        },
-        input: {
-            width: '100%',
-            padding: '10px',
-            marginBottom: '10px',
-            border: '1px solid #ccc',
-            borderRadius: '4px',
-            boxSizing: 'border-box',
-        },
-        button: {
-            width: '100%',
-            padding: '10px',
-            backgroundColor: 'white',
-            color: '#333',
-            border: '1px solid #ccc',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            marginTop: '10px',
-            fontSize: '16px',
-        },
-        link: {
-            display: 'block',
-            justifySelf: 'center',
-            textAlign: 'center',
-            marginTop: '15px',
-            color: '#333',
-            textDecoration: 'none',
-            fontSize: '14px',
-        },
-        toggleLink: {
-            background: 'none',
-            border: 'none',
-            color: '#8a2be2',
-            textDecoration: 'underline',
-            cursor: 'pointer',
-            fontSize: '14px',
-        },
-    };
-
     return (
         <div>
-            <HeaderBar style={styles.headerText} title={isLogin ? 'Login' : 'Register'}/>
-            <div style={styles.container}>
+            <HeaderBar className="bg-purple-800 text-white p-2 fixed top-0 left-0 right-0 border-b-2 border-purple-800" title={isLogin ? 'Login' : 'Register'}/>
+            <div className="font-sans max-w-xs mx-auto p-5 box-border mt-20">
 
-            <div style={styles.title}>
-                Loben App<br />
-                on the stairs
-            </div>
-
-            <form onSubmit={handleSubmit}>
-                <div style={styles.formGroup}>
-                    <label style={styles.label}>Username</label>
-                    <input
-                        type="text"
-                        name="username"
-                        placeholder="Username"
-                        style={styles.input}
-                        value={formData.username}
-                        onChange={handleChange}
-                        required
-                    />
+                <div className="text-center mt-16 mb-5 text-2xl font-bold">
+                    Loben App<br />
+                    on the stairs
                 </div>
 
-                <div style={styles.formGroup}>
-                    <label style={styles.label}>Password</label>
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        style={styles.input}
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-
-                {!isLogin && (
-                    <div style={styles.formGroup}>
-                        <label style={styles.label}>Password erneut</label>
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-4">
+                        <label className="block mb-1 text-sm">Username</label>
                         <input
-                            type="password"
-                            name="confirmPassword"
-                            placeholder="Password"
-                            style={styles.input}
-                            value={formData.confirmPassword}
+                            type="text"
+                            name="username"
+                            placeholder="Username"
+                            className="w-full p-2 mb-2 border border-gray-300 rounded"
+                            value={formData.username}
                             onChange={handleChange}
                             required
                         />
                     </div>
-                )}
 
-                <button type="submit" style={styles.button}>
-                    {isLogin ? 'Einloggen' : 'Registieren'}
-                </button>
-            </form>
+                    <div className="mb-4">
+                        <label className="block mb-1 text-sm">Password</label>
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            className="w-full p-2 mb-2 border border-gray-300 rounded"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
-            <div style={styles.link}>
-                {isLogin ? (
-                    <span>
-            Kein Account?{' '}
-                        <button onClick={toggleForm} style={styles.toggleLink}>
-              Registrieren
-            </button>
-          </span>
-                ) : (
-                    <span>
-            Bereits ein Account?{' '}
-                        <button onClick={toggleForm} style={styles.toggleLink}>
-              Einloggen
-            </button>
-          </span>
-                )}
-            </div>
+                    {!isLogin && (
+                        <div className="mb-4">
+                            <label className="block mb-1 text-sm">Password erneut</label>
+                            <input
+                                type="password"
+                                name="confirmPassword"
+                                placeholder="Password"
+                                className="w-full p-2 mb-2 border border-gray-300 rounded"
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                    )}
 
-                <button onClick={loginAsGuest} style={styles.link}>Gastlogin</button>
+                    <button type="submit" className="w-full p-2 bg-white text-gray-800 border border-gray-300 rounded cursor-pointer mt-2 text-lg">
+                        {isLogin ? 'Einloggen' : 'Registieren'}
+                    </button>
+                </form>
+
+                <div className="text-center mt-4 text-sm">
+                    {isLogin ? (
+                        <span>
+                            Kein Account?{' '}
+                            <button onClick={toggleForm} className="bg-none border-none text-purple-800 underline cursor-pointer">
+                                Registrieren
+                            </button>
+                        </span>
+                    ) : (
+                        <span>
+                            Bereits ein Account?{' '}
+                            <button onClick={toggleForm} className="bg-none border-none text-purple-800 underline cursor-pointer">
+                                Einloggen
+                            </button>
+                        </span>
+                    )}
+                </div>
+
+                <button onClick={loginAsGuest} className="block justify-self-center mt-4 text-sm text-purple-800 underline cursor-pointer">Gastlogin</button>
             </div>
         </div>
     );

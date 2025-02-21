@@ -1,13 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {Flag, Send, User} from 'lucide-react';
-import {UserService} from "../logic/userService";
+import UserService from "../logic/userService"
+import ApiService from '../logic/apiService';
+import { v4 as uuidv4 } from 'uuid';
+import {Post} from '../logic/collections';
+
 
 
 
 const SocialPost = ({ post }) => {
+    const userService = UserService;
+    const apiService = ApiService;
+
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
-    const userService = new UserService();
 
     useEffect(() => {
         if (post && post.comments) {
@@ -20,34 +26,45 @@ const SocialPost = ({ post }) => {
     }
 
     function handleCaption(caption) {
-        const hashtagRegex = /#(\w+)/g;
-
-        // Teile den Text in Wörter und prüfe jedes Wort auf einen Hashtag
-        const words = caption.split(' ');
-        return words.map(word => {
-            if (word.match(hashtagRegex)) {
-                // Wenn es ein Hashtag ist, gib ein JSX-Element zurück
-                return <span key={word} className="text-blue-500 underline">{word} </span>;
-            } else {
-                // Ansonsten gib das Wort als Text zurück
-                return word + " ";
-            }
-        });
-    }
-
+        try {
+            const hashtagRegex = /#(\w+)/g;
+            // Teile den Text in Wörter und prüfe jedes Wort auf einen Hashtag
+            const words = caption.split(' ');
+            return words.map(word => {
+                if (word.match(hashtagRegex)) {
+                    // Wenn es ein Hashtag ist, gib ein JSX-Element zurück
+                    return <span key={word} className="text-blue-500 underline">{word} </span>;
+                } else {
+                    // Ansonsten gib das Wort als Text zurück
+                    return word + " ";
+                }
+            });
+        } catch (error) {
+            console.log(error);
+            return caption;
+    }}
 
     const handleSubmitComment = (e) => {
         e.preventDefault();
         if (!newComment.trim()) return;
 
         const newCommentObj = {
-            id: comments.reduce((maxId, post) => Math.max(maxId, post.id), 0) + 1,
-            username: userService.getCurrentUser().name,
-            text: newComment.trim()
+            id: uuidv4(),
+            commentTimestamp: new Date().toISOString(),
+            commentWriter: userService.getCurrentUser().name,
+            comment: newComment.trim(),
         };
-
-        comments.push(newCommentObj)
-        setNewComment('');
+        const updatedPost = new Post(post.id, post.timestamp, post.username, post.byUser, post.avatar, post.image, post.caption, post.comments);
+        updatedPost.comments.push(newCommentObj);
+        setComments(updatedPost.comments);
+        apiService.doRequestJson(`/post/${post.id}`, 'PUT', updatedPost).then((feedPost) => {
+            setComments(feedPost.comments);
+            setNewComment('');})
+            .catch((error) => {
+                console.error(error);
+                alert('Fehler beim Kommentieren des Posts');
+            }
+        );
     };
 
     if (!post) {
@@ -80,8 +97,8 @@ const SocialPost = ({ post }) => {
                 <div className="w-full space-y-2">
                     {comments.map((comment) => (
                         <div key={comment.id} className="flex flex-wrap gap-2 text-sm">
-                            <span className="font-medium">{comment.username}:</span>
-                            <span>{comment.text}</span>
+                            <span className="font-medium">{comment.commentWriter}:</span>
+                            <span>{comment.comment}</span>
                         </div>
                     ))}
                 </div>

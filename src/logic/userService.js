@@ -1,12 +1,31 @@
-import type {CurrentUser} from "./collections";
-import {backendurl} from "../App";
+import ApiService from "./apiService"
+import { decodeToken } from "react-jwt";
+import { v4 as uuidv4 } from 'uuid';
 
+class UserService{
 
-export class UserService{
+    constructor() {
+        this.apiService = ApiService;
+    }
 
-    static currentUser: CurrentUser = { name: '', password: '', profile: {}};
+    initCurrentUser(token) {
+        const decodedToken = decodeToken(token)
+        console.log(decodedToken)
+        const reqPath = "/user/" + decodedToken.user_id.userId
+        this.apiService.doRequestJson(reqPath, "GET").then(data => {
+        this.setCurrentUser(data)
+        })
+    } 
 
-    getCurrentUser(): CurrentUser {
+    getAuthToken() {
+        return localStorage.getItem("token")
+    }
+
+    setAuthToken(token) {
+        localStorage.setItem("token", token)
+    }
+
+    getCurrentUser() {
         return JSON.parse(localStorage.getItem("currentUser"))
     }
 
@@ -15,68 +34,67 @@ export class UserService{
     }
 
     clearCurrentUser() {
-        localStorage.clear()
+        localStorage.removeItem("currentUser")
+        localStorage.removeItem("token")
     }
 
     isLoggedIn() {
-        return localStorage.getItem("currentUser") != null
+        return localStorage.getItem("token") != null
     }
 
-    async login(name: String, password: String) {
-        const headers = new Headers({"Content-Type": "application/json"});
+    login(name, password) {
         try {
-            const response = await fetch( backendurl.BACKEND_URL + "/login", {
-                headers: headers,
-                method: "POST",
-                body: JSON.stringify({
-                    name: name,
-                    password: password
+            return this.apiService.login("/login", "POST", {
+                name: name,
+                password: password
+            }).then(data => {
+                this.setAuthToken(data.token)
+                const decodedToken = decodeToken(data.token)
+                const reqPath = "/user/" + decodedToken.user_id.userId
+                this.apiService.doRequestJson(reqPath, "GET").then(data => {
+                    this.setCurrentUser(data)
                 })
+                return true
             })
-            if (response.status === 200) {
-                let data = await response.json()
-                UserService.currentUser.name = data.name
-                UserService.currentUser.password = data.password
-                UserService.currentUser.profile = data.profile
-                let currentUser = UserService.currentUser
-                this.setCurrentUser(currentUser)
-                return true;
-            } else {
-                return false
-            }
-        } catch (err) {console.log(err)}
+        }
+        catch (err) {
+            console.log(err)
+            return false
+        }
     }
 
-    async register(name: String, password: String) {
-        const headers = new Headers({"Content-Type": "application/json"});
+    register(name, password, profile) {
         try {
-            const response = await fetch(  backendurl.BACKEND_URL + "/createUser", {
-                headers: headers,
-                method: "POST",
-                body: JSON.stringify({
-                    name: name,
-                    password: password,
-                    profile: {
-                        lobe: 0,
-                        gelobt: 0
-                    }
+            return this.apiService.doRequestJson("/register", "POST", {
+                id: uuidv4(),
+                name: name,
+                password: password,
+                profile: profile
+            }).then(data => {
+                this.setCurrentUser(data)
+                console.log(data)
+                return true
+            }) 
+        }
+        catch (err) {console.log(err)}
+    }
+
+    updatePassword(newPassword) {
+        try {
+            return this.apiService.doRequestJson("/user", "PUT", {
+                name: this.getCurrentUser().name, 
+                password: newPassword   
+                }).then(data => {
+                    console.log(data)
                 })
-            })
-            if (response.status === 200) {
-                let data = await response.json()
-                UserService.currentUser.name = data.name
-                UserService.currentUser.password = data.password
-                UserService.currentUser.profile = data.profile
-                let currentUser = UserService.currentUser
-                this.setCurrentUser(currentUser)
-                return true;
-            } else {
-                return false
             }
-        } catch (err) {console.log(err)}
+        catch (err) {console.log(err)}
     }
 
     logout(){
         this.clearCurrentUser()
     }
 }
+
+UserService = new UserService()
+export default UserService;

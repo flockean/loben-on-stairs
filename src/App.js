@@ -5,23 +5,17 @@ import UploadView from "./components/UploadView";
 import FeedView from "./components/FeedView";
 import React from "react";
 import Profile from "./components/ProfileView";
-import {UserService} from "./logic/userService";
+import UserService from "./logic/userService";
 
-export const userService = new UserService();
-// Geschützte Route, die nur für authentifizierte Benutzer zugänglich ist
+const userService = UserService;
+
 const ProtectedRoute = ({ children }) => {
     const isLoggedIn = userService.isLoggedIn();
-
     if (!isLoggedIn) {
         return <Navigate to="/auth" replace />;
     }
-
     return children;
 };
-
-export const backendurl = {
-    BACKEND_URL: "http://localhost:5000",
-}
 
 export const router = createBrowserRouter([
     {

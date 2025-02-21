@@ -1,6 +1,6 @@
 'use client'
 
-import {useState} from 'react'
+import {useEffect, useState, useRef} from 'react';
 import {Button} from "./ui/button"
 import {Input} from "./ui/input"
 import {Switch} from "./ui/switch"
@@ -9,25 +9,57 @@ import {useNavigate} from 'react-router-dom'
 import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle,} from "./ui/dialog"
 import Navbar from "./Navbar";
 import HeaderBar from "./HeaderBar";
-import {UserService} from "../logic/userService";
+import UserService from "../logic/userService"
 
 export default function Profile() {
-  const navigate = useNavigate()
+  const userService = UserService;
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+          oldPassword: '',
+          newPassword: '',
+          confirmPassword: ''
+      });
+  const [UserData, setUserData] = useState({profile: {}});
+  useEffect(function getUserData() {
+    try {
+      setUserData(userService.getCurrentUser())
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }, [userService]) 
+
   const [privacySettings, setPrivacySettings] = useState({
     visible: false,
     publicPraise: false,
     praiseTurnedOff: false,
   })
   const [isPopupOpen, setIsPopupOpen] = useState(false)
-  const userService = new UserService();
 
   const handlePasswordChange = (e) => {
-    e.preventDefault()
-    // Show the popup
-    setIsPopupOpen(true)
-    // Close the popup after 2 seconds
-    setTimeout(() => setIsPopupOpen(false), 2000)
+    console.log(formData)
+    if (formData.oldPassword !== formData.newPassword &&  
+        formData.newPassword === formData.confirmPassword
+    ) {
+      userService.updatePassword(formData.oldPassword, formData.newPassword)
+      e.preventDefault()
+      // Show the popup
+      setIsPopupOpen(true)
+      // Close the popup after 2 seconds
+      setTimeout(() => setIsPopupOpen(false), 2000)
+    }
+    else {
+      alert('Passwörter stimmen nicht überein')
+    }
   }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+        ...prevState,
+        [name]: value
+    }));
+};
 
   const handleLogout = () => {
     userService.logout()
@@ -42,10 +74,10 @@ export default function Profile() {
         <div className="flex items-center p-4">
           <User className="h-8 w-8 mr-2" />
           <div>
-            <h2 className="font-semibold">{userService.getCurrentUser().name}</h2>
+            <h2 className="font-semibold">{UserData.name}</h2>
             <div className="flex gap-4 text-sm text-muted-foreground">
-              <span>{userService.getCurrentUser().profile.gelobt} Gelobt</span>
-              <span>{userService.getCurrentUser().profile.lobe} Lob(e) verteilt</span>
+              <span>{UserData.profile.gelobt} Gelobt</span>
+              <span>{UserData.profile.lobe} Lob(e) verteilt</span>
             </div>
           </div>
         </div>
@@ -102,17 +134,26 @@ export default function Profile() {
           <form onSubmit={handlePasswordChange} className="space-y-4">
             <Input
               type="password"
+              name="oldPassword"
               placeholder="Aktuelles Passwort"
+              value={formData.oldPassword}
+              onChange={handleChange}
               required
             />
             <Input
               type="password"
+              name="newPassword"
               placeholder="Neues Passwort"
+              value={formData.newPassword}
+              onChange={handleChange}
               required
             />
             <Input
               type="password"
+              name="confirmPassword"
               placeholder="Wiederhole neues Passwort"
+              value={formData.confirmPassword}
+              onChange={handleChange}
               required
             />
             <Button type="submit" className="w-full bg-black text-white hover:bg-gray-800 transition-colors duration-200">
