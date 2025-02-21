@@ -81,7 +81,7 @@ class UserService{
 
     updatePassword(newPassword) {
         try {
-            return this.apiService.doRequestJson("/updateUser", "PUT", {
+            return this.apiService.doRequestJson("/user", "PUT", {
                 name: this.getCurrentUser().name, 
                 password: newPassword   
                 }).then(data => {

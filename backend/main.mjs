@@ -12,10 +12,8 @@ const app = express();
 
 app.use("/login", json());
 app.use("/register", json());
-app.use("/createPost", json());
-app.use("/updateUser", json());
-app.use("/posts", json());
-app.use("/users", json());
+app.use("/post", json());
+app.use("/user", json());
 app.use(cors());
 
 app.get('/', (req, res) => {
@@ -53,22 +51,10 @@ app.post('/login', async (req, res) => {
     }
 });
 
-app.get('/user/:userid', authService.verifyToken ,async (req, res) => {
-    try {
-        const user = await dbService.User.findOne({id: req.params.userid})
-        console.log('User Requested:', user)
-        user.password = undefined
-        res.status(202).send(user)
-    } catch (error) {
-        console.error('Error getting users:', error);
-        res.status(500).send('Something went wrong getting users');
-    }
-})
-
-app.get('/users', authService.verifyToken, async (req, res) => {
+app.get('/user', authService.verifyToken, async (req, res) => {
     try {
         const users = await dbService.User.find({}, ['name', 'id', 'avatar', 'profile']);
-        console.log('User requested', users);
+        console.log('Users requested', users);
         res.send(users);
     } catch (error) {
         console.error('Error getting users:', error);
@@ -76,9 +62,21 @@ app.get('/users', authService.verifyToken, async (req, res) => {
     }
 });
 
-app.put('/updateUser', authService.verifyToken, async (req, res) => {
+app.get('/user/:userid', authService.verifyToken ,async (req, res) => {
     try {
-        await dbService.User.findOneAndUpdate({ name: req.body.name }, req.body);
+        const user = await dbService.User.findOne({id: req.params.userid})
+        user.password = undefined
+        console.log('User Requested:', user)
+        res.status(202).send(user)
+    } catch (error) {
+        console.error('Error getting users:', error);
+        res.status(500).send('Something went wrong getting users');
+    }
+})
+
+app.put('/user/:userid', authService.verifyToken, async (req, res) => {
+    try {
+        await dbService.User.findOneAndUpdate({ name: req.params.userid }, req.body);
         const updatedUser = await dbService.User.findOne({ name: req.body.name });
         updatedUser.password = undefined;
         console.log('User updated:', updatedUser);
@@ -89,7 +87,7 @@ app.put('/updateUser', authService.verifyToken, async (req, res) => {
     }
 });
 
-app.get('/posts', authService.verifyToken, async (req, res) => {
+app.get('/post', authService.verifyToken, async (req, res) => {
     try {
         const posts = await dbService.FeedPost.find({ timestamp: { $gte: new Date(new Date().setDate(new Date().getDate() - 30)) } }).limit(10);
         res.send(posts);
@@ -99,7 +97,19 @@ app.get('/posts', authService.verifyToken, async (req, res) => {
     }
 });
 
-app.post('/createPost', authService.verifyToken, async (req, res) => {
+app.put('/post/:postid', authService.verifyToken, async (req, res) => {
+    try {
+        await dbService.FeedPost.findOneAndUpdate({ id: req.params.postid }, req.body);
+        const updatedPost = await dbService.FeedPost.findOne({ id: req.params.postid });
+        console.log('Post updated:', updatedPost);
+        res.status(200).send(updatedPost);
+    } catch (error) {
+        console.error('Error updating user:', error);
+        res.status(500).send('Something went wrong updating user');
+    }
+});
+
+app.post('/post', authService.verifyToken, async (req, res) => {
     try {
         const post = new dbService.FeedPost(req.body);
         const result = await post.save();

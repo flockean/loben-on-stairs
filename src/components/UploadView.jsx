@@ -35,7 +35,7 @@ export default function UploadView() {
             if (!initialized.current) {
                 initialized.current = true
             const fetchedUser = [];
-            apiService.doRequestJson('/users', 'GET').then(data => {  
+            apiService.doRequestJson('/user', 'GET').then(data => {  
                 data.forEach(user => {
                     fetchedUser.push(new UserModel(user.id, null, user.name, null, user.avatar, user.profile))
                   })
@@ -85,7 +85,7 @@ export default function UploadView() {
             var filename = await uploadImage(mediaFile);
             newPost.image = apiService.getUrl() + "/image/" + filename;
 
-            apiService.doRequestJson("/createPost", "POST", {
+            apiService.doRequestJson("/post", "POST", {
                 id: uuidv4(),
                 username: newPost.username,
                 caption: newPost.caption,
@@ -97,12 +97,14 @@ export default function UploadView() {
                 console.log("Post created")
             })
             
-            apiService.doRequestJson("/updateUser", "PUT", updatedUserStats).then(
+            apiService.doRequestJson("/user/" + userService.getCurrentUser().id, "PUT", updatedUserStats).then(
                 () => {
                     userService.setCurrentUser(updatedUserStats)
                     console.log("Stats Updated")
                 }
             )
+            
+            window.location.reload();
         } catch (err) {
             console.log(err)
         }

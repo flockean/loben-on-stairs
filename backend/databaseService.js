@@ -35,11 +35,11 @@ const FeedPostSchema = new mongoose.Schema({
     image: { type: String, required: true },
     comments: [
         {
-            id: { type: Number },
+            id: { type: String, default: getRandomUUID() },
             commentTimestamp: { type: String, default: new Date().toISOString() },
             commentWriter: { type: String },
             comment: { type: String },
-        },
+        }
     ],
 });
 

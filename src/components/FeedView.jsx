@@ -15,7 +15,7 @@ export default function FeedView() {
         if (!initialized.current) {
           initialized.current = true
         const fetchedPosts = [];
-        apiService.doRequestJson('/posts', 'GET').then(data => {  
+        apiService.doRequestJson('/post', 'GET').then(data => {  
             data.forEach(post => {
               fetchedPosts.push(new Post(post.id, post.timestamp, post.username, post.byUser, post.avatar, post.image, post.caption, post.comments))
               })
